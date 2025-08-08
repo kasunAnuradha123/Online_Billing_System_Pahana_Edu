@@ -33,7 +33,7 @@
 			</a>
 		</nav>
 		<div class="p-4 border-t border-indigo-700">
-			<form action="logout" method="post">
+			<form action="<%= request.getContextPath() %>/LogoutServlet" method="get">
 				<button type="submit"
 					class="w-full bg-red-600 hover:bg-red-700 p-2 rounded-lg">
 					<i class="fa fa-sign-out-alt mr-2"></i> Logout

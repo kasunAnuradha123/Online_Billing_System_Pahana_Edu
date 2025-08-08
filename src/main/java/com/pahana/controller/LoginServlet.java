@@ -1,12 +1,9 @@
-package com.pahana.controller.Login;
+package com.pahana.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import com.pahana.dao.UserDao;
 import com.pahana.model.User;
@@ -14,10 +11,6 @@ import com.pahana.model.User;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
-    public LoginServlet() {
-        super();
-    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,13 +22,14 @@ public class LoginServlet extends HttpServlet {
         User user = userDao.getUserByUsernameAndPassword(username, password);
 
         if (user != null) {
-            // Login success → Store in session
             HttpSession session = request.getSession();
             session.setAttribute("loggedUser", user);
 
-            response.sendRedirect("pages/dashboard.jsp");
+            // Optional: Set session timeout in seconds (e.g., 30 minutes)
+            session.setMaxInactiveInterval(30 * 60);
+
+            response.sendRedirect(request.getContextPath() + "/pages/dashboard.jsp");
         } else {
-            // Login failed → Show error
             request.setAttribute("errorMessage", "Invalid username or password!");
             request.getRequestDispatcher("pages/login.jsp").forward(request, response);
         }
