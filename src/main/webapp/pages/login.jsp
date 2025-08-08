@@ -124,23 +124,7 @@
 					</div>
 				</div>
 
-				<!-- Remember Me & Forgot Password -->
-				<div class="flex items-center justify-between mb-6 text-sm">
-					<label
-						class="flex items-center text-white/80 cursor-pointer hover:text-white transition-colors">
-						<input type="checkbox" class="sr-only">
-						<div class="relative">
-							<div
-								class="w-4 h-4 bg-white/10 border border-white/30 rounded transition-all duration-200"></div>
-							<div
-								class="absolute inset-0 w-4 h-4 bg-gradient-to-r from-pink-400 to-purple-400 rounded opacity-0 transition-opacity duration-200"></div>
-							<i
-								class="fas fa-check absolute inset-0 w-4 h-4 text-white text-xs flex items-center justify-center opacity-0 transition-opacity duration-200"></i>
-						</div> <span class="ml-2">Remember me</span>
-					</label> <a href="#"
-						class="text-pink-300 hover:text-pink-200 transition-colors duration-200 hover:underline">
-						Forgot password? </a>
-				</div>
+				
 
 				<!-- Login Button -->
 				<button type="submit"

@@ -8,37 +8,103 @@
 </head>
 <body>
 
-	<aside class="w-64 bg-indigo-900 text-white flex flex-col">
-		<div class="p-6 text-2xl font-bold border-b border-indigo-700">
-			📚 BookShop Pro</div>
+	<aside class="w-72 bg-indigo-900 text-white flex flex-col">
+		<div class="p-6 border-b border-white/20 animate-fade-in">
+			<div class="flex items-center space-x-4">
+				<div
+					class="inline-flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
+					<i class="fas fa-book-reader text-xl text-white"></i>
+				</div>
+				<div>
+					<h1 class="text-xl font-bold text-white">Pahana Edu</h1>
+					<p class="text-white/70 text-sm">BookShop</p>
+				</div>
+			</div>
+		</div>
 		<nav class="flex-1 p-4 space-y-2">
 			<a href="dashboard.jsp"
-				class="flex items-center p-3 rounded-lg hover:bg-indigo-700"> <i
-				class="fa fa-users mr-3"></i> Dashboard
+				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+				<div
+					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300">
+					<i class="fas fa-chart-pie text-white text-sm"></i>
+				</div>
+				<div class="flex-1">
+					<span class="text-white font-medium">Dashboard</span>
+					<p class="text-white/60 text-xs">Overview & Analytics</p>
+				</div> <i
+				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
 			</a> <a href="customers.jsp"
-				class="flex items-center p-3 rounded-lg hover:bg-indigo-700"> <i
-				class="fa fa-users mr-3"></i> Customers
+				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+				<div
+					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-green-500/25 transition-all duration-300">
+					<i class="fas fa-users text-white text-sm"></i>
+				</div>
+				<div class="flex-1">
+					<span class="text-white font-medium">Customers</span>
+					<p class="text-white/60 text-xs">Manage Customer Data</p>
+				</div> <i
+				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
 			</a> <a href="billing.jsp"
-				class="flex items-center p-3 rounded-lg hover:bg-indigo-700"> <i
-				class="fa fa-file-invoice-dollar mr-3"></i> Billing
+				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+				<div
+					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-yellow-500/25 transition-all duration-300">
+					<i class="fas fa-file-invoice-dollar text-white text-sm"></i>
+				</div>
+				<div class="flex-1">
+					<span class="text-white font-medium">Billing</span>
+					<p class="text-white/60 text-xs">Invoice & Payments</p>
+				</div> <i
+				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
 			</a> <a href="items.jsp"
-				class="flex items-center p-3 rounded-lg hover:bg-indigo-700"> <i
-				class="fa fa-box mr-3"></i> Items
+				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+				<div
+					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300">
+					<i class="fas fa-box text-white text-sm"></i>
+				</div>
+				<div class="flex-1">
+					<span class="text-white font-medium">Inventory</span>
+					<p class="text-white/60 text-xs">Books & Items</p>
+				</div> <i
+				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
 			</a> <a href="reports.jsp"
-				class="flex items-center p-3 rounded-lg hover:bg-indigo-700"> <i
-				class="fa fa-chart-line mr-3"></i> Reports
+				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+				<div
+					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-red-500/25 transition-all duration-300">
+					<i class="fas fa-chart-line text-white text-sm"></i>
+				</div>
+				<div class="flex-1">
+					<span class="text-white font-medium">Reports</span>
+					<p class="text-white/60 text-xs">Sales & Statistics</p>
+				</div> <i
+				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
 			</a> <a href="settings.jsp"
-				class="flex items-center p-3 rounded-lg hover:bg-indigo-700"> <i
-				class="fa fa-cog mr-3"></i> Settings
+				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+				<div
+					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-gray-500 to-slate-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-gray-500/25 transition-all duration-300">
+					<i class="fas fa-cog text-white text-sm"></i>
+				</div>
+				<div class="flex-1">
+					<span class="text-white font-medium">Settings</span>
+					<p class="text-white/60 text-xs">System Configuration</p>
+				</div> <i
+				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
 			</a>
 		</nav>
-		<div class="p-4 border-t border-indigo-700">
-			<form action="<%= request.getContextPath() %>/LogoutServlet" method="get">
+		<div class="p-4 border-t border-white/20 animate-fade-in"
+			style="animation-delay: 0.8s;">
+			<form action="<%=request.getContextPath()%>/LogoutServlet"
+				method="get">
 				<button type="submit"
-					class="w-full bg-red-600 hover:bg-red-700 p-2 rounded-lg">
-					<i class="fa fa-sign-out-alt mr-2"></i> Logout
+					class="w-full bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-medium py-3 px-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg hover:shadow-red-500/25 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-transparent">
+					<i class="fas fa-sign-out-alt mr-2"></i> <span>Logout</span>
 				</button>
 			</form>
+
+			<!-- Footer -->
+			<div class="mt-4 text-center">
+				<p class="text-white/40 text-xs">© 2025 Pahana Edu BookShop</p>
+				<p class="text-white/30 text-xs">v2.1.0</p>
+			</div>
 		</div>
 	</aside>
 
