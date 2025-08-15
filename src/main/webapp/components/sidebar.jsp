@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<aside class="w-72 bg-indigo-900 text-white flex flex-col">
+	<aside class="w-72  text-white flex flex-col">
 		<div class="p-6 border-b border-white/20 animate-fade-in">
 			<div class="flex items-center space-x-4">
 				<div

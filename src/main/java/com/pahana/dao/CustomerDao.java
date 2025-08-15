@@ -35,7 +35,7 @@ public class CustomerDao {
                 customer.setCreatedAt(rs.getDate("created_at"));
                 customers.add(customer);
             }
-            System.out.println("Customers fetched from DB: " + customers.size());
+           
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -56,5 +56,65 @@ public class CustomerDao {
         }
         return count;
     }
+    
+    public void addCustomer(Customer customer) {
+        String sql = "INSERT INTO customers (account_number, name, address, telephone_number) VALUES (?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, customer.getAccountNumber());
+            stmt.setString(2, customer.getName());
+            stmt.setString(3, customer.getAddress());
+            stmt.setString(4, customer.getTP());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCustomer(Customer customer) {
+        String sql = "UPDATE customers SET name=?, address=?, telephone_number=? WHERE id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, customer.getName());
+            stmt.setString(2, customer.getAddress());
+            stmt.setString(3, customer.getTP());
+            stmt.setInt(4, customer.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteCustomer(int id) {
+        String sql = "DELETE FROM customers WHERE id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String generateAccountNumber() {
+        String prefix = "PE-";
+        String sql = "SELECT COUNT(*) + 1 AS nextId FROM customers";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                int nextId = rs.getInt("nextId");
+                return prefix + String.format("%04d", nextId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return prefix + "0001";
+    }
+
 
 }
