@@ -5,7 +5,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.*;
 
-@WebFilter("/pages/*") // Protect all pages inside /pages/
+@WebFilter("/View/*") // Protect all View inside /View/
 public class SessionFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -21,7 +21,7 @@ public class SessionFilter implements Filter {
         if (loggedIn || loginPage) {
             chain.doFilter(request, response); // Continue
         } else {
-            res.sendRedirect(req.getContextPath() + "/pages/login.jsp");
+            res.sendRedirect(req.getContextPath() + "/View/auth/login.jsp");
         }
     }
 }

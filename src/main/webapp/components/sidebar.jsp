@@ -22,7 +22,7 @@
 			</div>
 		</div>
 		<nav class="flex-1 p-4 space-y-2">
-			<a href="dashboard.jsp"
+			<a href="<%= request.getContextPath() %>/View/dashboard/index.jsp"
 				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
 				<div
 					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300">
@@ -33,7 +33,8 @@
 					<p class="text-white/60 text-xs">Overview & Analytics</p>
 				</div> <i
 				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
-			</a> <a href="customers.jsp"
+			</a> 
+			<a href="<%=request.getContextPath()%>/CustomerServlet"
 				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
 				<div
 					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-green-500/25 transition-all duration-300">

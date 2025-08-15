@@ -1,4 +1,4 @@
-package com.pahana.controller;
+package com.pahana.controller.auth;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -28,10 +28,10 @@ public class LoginServlet extends HttpServlet {
             // Optional: Set session timeout in seconds (e.g., 30 minutes)
             session.setMaxInactiveInterval(30 * 60);
 
-            response.sendRedirect(request.getContextPath() + "/pages/dashboard.jsp");
+            response.sendRedirect(request.getContextPath() + "/View/dashboard/index.jsp");
         } else {
             request.setAttribute("errorMessage", "Invalid username or password!");
-            request.getRequestDispatcher("pages/login.jsp").forward(request, response);
+            request.getRequestDispatcher("View/auth/login.jsp").forward(request, response);
         }
     }
 }

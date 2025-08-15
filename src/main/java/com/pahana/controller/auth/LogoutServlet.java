@@ -1,4 +1,4 @@
-package com.pahana.controller;
+package com.pahana.controller.auth;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -23,6 +23,6 @@ public class LogoutServlet extends HttpServlet {
             session.invalidate();
         }
 
-        response.sendRedirect(request.getContextPath() + "/pages/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/View/auth/login.jsp");
     }
 }
