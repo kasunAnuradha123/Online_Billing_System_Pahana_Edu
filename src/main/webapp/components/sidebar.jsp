@@ -45,18 +45,8 @@
 					<p class="text-white/60 text-xs">Manage Customer Data</p>
 				</div> <i
 				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
-			</a> <a href="billing.jsp"
-				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
-				<div
-					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-yellow-500/25 transition-all duration-300">
-					<i class="fas fa-file-invoice-dollar text-white text-sm"></i>
-				</div>
-				<div class="flex-1">
-					<span class="text-white font-medium">Billing</span>
-					<p class="text-white/60 text-xs">Invoice & Payments</p>
-				</div> <i
-				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
-			</a> <a href="items.jsp"
+			</a>
+			 <a  href="<%=request.getContextPath()%>/ItemServlet"
 				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
 				<div
 					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300">
@@ -65,6 +55,18 @@
 				<div class="flex-1">
 					<span class="text-white font-medium">Inventory</span>
 					<p class="text-white/60 text-xs">Books & Items</p>
+				</div> <i
+				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
+			</a> 
+			<a href="billing.jsp"
+				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+				<div
+					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-yellow-500/25 transition-all duration-300">
+					<i class="fas fa-file-invoice-dollar text-white text-sm"></i>
+				</div>
+				<div class="flex-1">
+					<span class="text-white font-medium">Billing</span>
+					<p class="text-white/60 text-xs">Invoice & Payments</p>
 				</div> <i
 				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
 			</a> <a href="reports.jsp"
