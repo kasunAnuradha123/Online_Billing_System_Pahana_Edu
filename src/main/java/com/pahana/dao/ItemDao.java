@@ -4,149 +4,178 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.pahana.model.Item;
 import com.pahana.util.DBConnection; // Make sure you have a DB connection utility
 
 public class ItemDao {
 
-    // Get paginated items
-    public List<Item> getItems(int page, int pageSize) {
-        List<Item> items = new ArrayList<>();
-        int offset = (page - 1) * pageSize;
+	// Get paginated items
+	public List<Item> getItems(int page, int pageSize) {
+		List<Item> items = new ArrayList<>();
 
-        String sql = "SELECT * FROM items ORDER BY id DESC LIMIT ? OFFSET ?" + "FROM items ORDER BY id DESC LIMIT ?, ?";;
-       
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+		String sql = "SELECT * " + "FROM items ORDER BY id DESC LIMIT ?, ?";
+		
 
-            ps.setInt(1, pageSize);
-            ps.setInt(2, offset);
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Item item = new Item();
-                    item.setId(rs.getInt("id"));
-                    item.setItemCode(rs.getString("item_code"));
-                    item.setName(rs.getString("name"));
-                    item.setPurchasePrice(rs.getBigDecimal("purchase_price"));
-                    item.setSellingPrice(rs.getBigDecimal("selling_price"));
-                    item.setStockQuantity(rs.getInt("stock_quantity"));
-                    item.setCreatedAt(rs.getTimestamp("created_at"));
-                    item.setUpdatedAt(rs.getTimestamp("updated_at"));
+			stmt.setInt(1, (page - 1) * pageSize); // offset
+			stmt.setInt(2, pageSize); // limit
 
-                    items.add(item);
-                }
-            }
+			ResultSet rs = stmt.executeQuery();
+			
+				while (rs.next()) {
+					Item item = new Item();
+					item.setId(rs.getInt("id"));
+					item.setItemCode(rs.getString("item_code"));
+					item.setName(rs.getString("name"));
+					item.setPurchasePrice(rs.getBigDecimal("purchase_price"));
+					item.setSellingPrice(rs.getBigDecimal("selling_price"));
+					item.setStockQuantity(rs.getInt("stock_quantity"));
+					item.setCreatedAt(rs.getTimestamp("created_at"));
+					item.setUpdatedAt(rs.getTimestamp("updated_at"));
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+					items.add(item);
+				}
+			
 
-        return items;
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-    // Get total item count
-    public int getItemCount() {
-        String sql = "SELECT COUNT(*) FROM items";
-        try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+		return items;
+	}
 
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
+	// Get total item count
+	public int getItemCount() {
+		String sql = "SELECT COUNT(*) FROM items";
+		try (Connection conn = DBConnection.getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
 
-    // Add new item
-    public boolean addItem(Item item) {
-        String sql = "INSERT INTO items (item_code, name, purchase_price, selling_price, stock_quantity) VALUES (?, ?, ?, ?, ?)";
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+	// Add new item
+	public boolean addItem(Item item) {
+		String sql = "INSERT INTO items (item_code, name, purchase_price, selling_price, stock_quantity) VALUES (?, ?, ?, ?, ?)";
 
-            ps.setString(1, item.getItemCode());
-            ps.setString(2, item.getName());
-            ps.setBigDecimal(3, item.getPurchasePrice());
-            ps.setBigDecimal(4, item.getSellingPrice());
-            ps.setInt(5, item.getStockQuantity());
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            return ps.executeUpdate() > 0;
+			ps.setString(1, item.getItemCode());
+			ps.setString(2, item.getName());
+			ps.setBigDecimal(3, item.getPurchasePrice());
+			ps.setBigDecimal(4, item.getSellingPrice());
+			ps.setInt(5, item.getStockQuantity());
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+			return ps.executeUpdate() > 0;
 
-    // Update item
-    public boolean updateItem(Item item) {
-        String sql = "UPDATE items SET item_code=?, name=?, purchase_price=?, selling_price=?, stock_quantity=? WHERE id=?";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+	// Update item
+	public boolean updateItem(Item item) {
+		String sql = "UPDATE items SET item_code=?, name=?, purchase_price=?, selling_price=?, stock_quantity=? WHERE id=?";
 
-            ps.setString(1, item.getItemCode());
-            ps.setString(2, item.getName());
-            ps.setBigDecimal(3, item.getPurchasePrice());
-            ps.setBigDecimal(4, item.getSellingPrice());
-            ps.setInt(5, item.getStockQuantity());
-            ps.setInt(6, item.getId());
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            return ps.executeUpdate() > 0;
+			ps.setString(1, item.getItemCode());
+			ps.setString(2, item.getName());
+			ps.setBigDecimal(3, item.getPurchasePrice());
+			ps.setBigDecimal(4, item.getSellingPrice());
+			ps.setInt(5, item.getStockQuantity());
+			ps.setInt(6, item.getId());
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+			return ps.executeUpdate() > 0;
 
-    // Delete item
-    public boolean deleteItem(int id) {
-        String sql = "DELETE FROM items WHERE id=?";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+	// Delete item
+	public boolean deleteItem(int id) {
+		String sql = "DELETE FROM items WHERE id=?";
 
-            ps.setInt(1, id);
-            return ps.executeUpdate() > 0;
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+			ps.setInt(1, id);
+			return ps.executeUpdate() > 0;
 
-    // Optional: Get item by ID
-    public Item getItemById(int id) {
-        String sql = "SELECT * FROM items WHERE id=?";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+	// Optional: Get item by ID
+	public Item getItemById(int id) {
+		String sql = "SELECT * FROM items WHERE id=?";
 
-            ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    Item item = new Item();
-                    item.setId(rs.getInt("id"));
-                    item.setItemCode(rs.getString("item_code"));
-                    item.setName(rs.getString("name"));
-                    item.setPurchasePrice(rs.getBigDecimal("purchase_price"));
-                    item.setSellingPrice(rs.getBigDecimal("selling_price"));
-                    item.setStockQuantity(rs.getInt("stock_quantity"));
-                    item.setCreatedAt(rs.getTimestamp("created_at"));
-                    item.setUpdatedAt(rs.getTimestamp("updated_at"));
-                    return item;
-                }
-            }
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+			ps.setInt(1, id);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					Item item = new Item();
+					item.setId(rs.getInt("id"));
+					item.setItemCode(rs.getString("item_code"));
+					item.setName(rs.getString("name"));
+					item.setPurchasePrice(rs.getBigDecimal("purchase_price"));
+					item.setSellingPrice(rs.getBigDecimal("selling_price"));
+					item.setStockQuantity(rs.getInt("stock_quantity"));
+					item.setCreatedAt(rs.getTimestamp("created_at"));
+					item.setUpdatedAt(rs.getTimestamp("updated_at"));
+					return item;
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	//getItemToBillingPage
+	 public List<Item> getAllItems(String keyword) {
+	        List<Item> list = new ArrayList<>();
+	        String sql = "SELECT * FROM item";
+	        if (keyword != null && !keyword.trim().isEmpty()) {
+	            sql += " WHERE name LIKE ? OR description LIKE ?";
+	        }
+
+	        try (Connection con = DBConnection.getConnection();
+	             PreparedStatement ps = con.prepareStatement(sql)) {
+
+	            if (keyword != null && !keyword.trim().isEmpty()) {
+	                ps.setString(1, "%" + keyword + "%");
+	                ps.setString(2, "%" + keyword + "%");
+	            }
+
+	            ResultSet rs = ps.executeQuery();
+	            while (rs.next()) {
+	                Item item = new Item();
+	                item.setId(rs.getInt("id"));
+	                item.setName(rs.getString("name"));
+	                item.setSellingPrice(rs.getBigDecimal("price"));
+	                item.setStockQuantity(rs.getInt("qty"));
+	                list.add(item);
+	            }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return list;
+	    }
 }
