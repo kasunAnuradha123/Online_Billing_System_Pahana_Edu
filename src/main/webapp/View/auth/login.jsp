@@ -33,7 +33,7 @@
     </script>
 </head>
 <body
-	class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 flex items-center justify-center  relative overflow-auto py-10">
+	class="min-h-screen bg-gradient-to-br from-teal-400 to-cyan-600  flex items-center justify-center  relative overflow-auto py-10">
 	<!-- Animated Background Elements -->
 	<div class="absolute inset-0 overflow-hidden">
 		<div

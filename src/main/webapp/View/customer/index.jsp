@@ -12,9 +12,18 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+	
 </head>
 <body
-	class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 font-sans">
+	class="min-h-screen bg-gradient-to-br from-teal-400 to-cyan-600  font-sans">
+	<div class="absolute inset-0 overflow-hidden">
+		<div
+			class="absolute -top-4 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow"></div>
+		<div
+			class="absolute top-1/2 -right-4 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow animation-delay-2000"></div>
+		<div
+			class="absolute -bottom-8 left-1/2 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow animation-delay-4000"></div>
+	</div>
 	<div class="flex h-screen relative z-10">
 		<!-- Sidebar -->
 		<%@ include file="/components/sidebar.jsp"%>
@@ -33,7 +42,7 @@
 						<!-- Search Bar -->
 						<div class="relative">
 							<input type="text" id="searchInput"
-								class="w-64 p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm pl-10"
+								class="w-64 p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm pl-10"
 								placeholder="Search customers..."> <i
 								class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
 						</div>
@@ -159,7 +168,7 @@
 
 						<c:forEach begin="1" end="${totalPages}" var="i">
 							<a href="CustomerServlet?page=${i}"
-								class="px-4 py-2 ${i == currentPage ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white' : 'bg-white/10 border border-white/20 text-white hover:bg-white/20'} rounded-lg font-medium">
+								class="px-4 py-2 ${i == currentPage ? 'bg-gradient-to-br from-teal-100 to-cyan-600 text-white' : 'bg-white/10 border border-white/20 text-white hover:bg-white/20'} rounded-lg font-medium">
 								${i} </a>
 						</c:forEach>
 
@@ -176,11 +185,11 @@
 				<div id="addCustomerModal"
 					class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
 					<div
-						class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 rounded-2xl w-96 p-6 relative shadow-2xl">
+						class="bg-gradient-to-br from-teal-400 to-cyan-600  rounded-2xl w-96 p-6 relative shadow-2xl">
 						<h2 class="text-white text-2xl font-bold mb-4">Add Customer</h2>
 						<c:if test="${not empty errors}">
 							<div
-								class="mb-4 text-pink-300 text-sm bg-white/10 border border-pink-400/40 rounded-lg p-3">
+								class="mb-4 text-white bg-red-500 text-sm  border border-red-600 rounded-lg p-3">
 								<c:forEach var="err" items="${errors}">
 									<div>⚠️ ${err}</div>
 								</c:forEach>
@@ -194,14 +203,14 @@
 							<div class="mb-6">
 								<label class="block text-white/90 font-medium mb-2 text-sm">
 									<i class="fas fa-user mr-2"></i>Name <span
-									class="text-pink-300">*</span>
+									class="text-red-400">*</span>
 								</label>
 								<div class="relative">
 									<input type="text" name="name"  value="${formName != null ? formName : ''}"
-										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter customer name" >
 									<div
-										class="absolute inset-0 rounded-xl bg-gradient-to-r from-pink-400/20 to-purple-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
+										class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400/20 to-cyan-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
 								</div>
 							</div>
 
@@ -209,14 +218,14 @@
 							<div class="mb-6">
 								<label class="block text-white/90 font-medium mb-2 text-sm">
 									<i class="fas fa-phone mr-2"></i>Contact <span
-									class="text-pink-300">*</span>
+									class="text-red-400">*</span>
 								</label>
 								<div class="relative">
 									<input type="text" name="tp" value="${formTP != null ? formTP : ''}"
-										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter contact number" >
 									<div
-										class="absolute inset-0 rounded-xl bg-gradient-to-r from-pink-400/20 to-purple-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
+										class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400/20 to-cyan-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
 								</div>
 							</div>
 
@@ -227,10 +236,10 @@
 								</label>
 								<div class="relative">
 									<input type="text" name="address"  value="${formAddress != null ? formAddress : ''}"
-										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter address">
 									<div
-										class="absolute inset-0 rounded-xl bg-gradient-to-r from-pink-400/20 to-purple-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
+										class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400/20 to-cyan-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
 								</div>
 							</div>
 
@@ -244,20 +253,18 @@
 									Add</button>
 							</div>
 						</form>
-						<button onclick="closeAddModal()"
-							class="absolute top-3 right-3 text-white hover:text-pink-300 text-lg">
-							&times;</button>
+						
 					</div>
 				</div>
 				<!-- Edit Customer Modal -->
 				<div id="editModal"
 					class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
 					<div
-						class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 rounded-2xl w-96 p-6 relative shadow-2xl">
+						class="bg-gradient-to-br from-teal-400 to-cyan-600  rounded-2xl w-96 p-6 relative shadow-2xl">
 						<h2 class="text-white text-2xl font-bold mb-4">Edit Customer</h2>
 						<c:if test="${not empty errors}">
 							<div
-								class="mb-4 text-pink-300 text-sm bg-white/10 border border-pink-400/40 rounded-lg p-3">
+								class="mb-4 text-white bg-red-500 text-sm  border border-red-600 rounded-lg p-3 ">
 								<c:forEach var="err" items="${errors}">
 									<div>⚠️ ${err}</div>
 								</c:forEach>
@@ -272,11 +279,11 @@
 							<div class="mb-6">
 								<label class="block text-white/90 font-medium mb-2 text-sm">
 									<i class="fas fa-user mr-2"></i>Name <span
-									class="text-pink-300">*</span>
+									class="text-red-400">*</span>
 								</label>
 								<div class="relative">
 									<input type="text" id="editName" name="name" name="name" value="${formName != null ? formName : ''}" 
-										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter customer name">
 								</div>
 							</div>
@@ -285,11 +292,11 @@
 							<div class="mb-6">
 								<label class="block text-white/90 font-medium mb-2 text-sm">
 									<i class="fas fa-phone mr-2"></i>Contact <span
-									class="text-pink-300">*</span>
+									class="text-red-400">*</span>
 								</label>
 								<div class="relative">
 									<input type="text" id="editTP" name="tp"  value="${formTP != null ? formTP : ''}" 
-										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter contact number">
 								</div>
 							</div>
@@ -301,7 +308,7 @@
 								</label>
 								<div class="relative">
 									<input type="text" id="editAddress" name="address" value="${formAddress != null ? formAddress : ''}"
-										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter address">
 								</div>
 							</div>
@@ -316,20 +323,19 @@
 									Save</button>
 							</div>
 						</form>
-						<button onclick="closeEditModal()"
-							class="absolute top-3 right-3 text-white hover:text-pink-300 text-lg">&times;</button>
+						
 					</div>
 				</div>
 
 				<!-- Delete Confirmation Modal -->
 				<div id="deleteModal"
 					class="fixed inset-0 flex items-center justify-center bg-black/50 hidden z-50">
-					<div class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-6 rounded-2xl shadow-lg w-96">
+					<div class="bg-gradient-to-br from-teal-400 to-cyan-600 p-6 rounded-2xl shadow-lg w-96">
 						<h2 class="text-lg font-semibold text-white mb-4">
 							<i class="fas fa-exclamation-triangle text-yellow-400 mr-2"></i>
 							Confirm Delete
 						</h2>
-						<p class="text-white/80 mb-6">Are you sure you want to delete
+						<p class="text-white mb-6">Are you sure you want to delete
 							this customer?</p>
 						<div class="flex justify-end gap-3">
 							<button type="button" onclick="closeDeleteModal()"

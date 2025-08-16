@@ -14,7 +14,15 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </head>
 <body
-	class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 font-sans">
+	class="min-h-screenclass bg-gradient-to-br from-teal-400 to-cyan-600  font-sans">
+	<div class="absolute inset-0 overflow-hidden">
+		<div
+			class="absolute -top-4 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow"></div>
+		<div
+			class="absolute top-1/2 -right-4 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow animation-delay-2000"></div>
+		<div
+			class="absolute -bottom-8 left-1/2 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow animation-delay-4000"></div>
+	</div>
 	<div class="flex h-screen relative z-10">
 		<%@ include file="/components/sidebar.jsp"%>
 
@@ -29,7 +37,7 @@
 					<div class="flex items-center space-x-4">
 						<div class="relative">
 							<input type="text" id="searchInput"
-								class="w-64 p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm pl-10"
+								class="w-64 p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm pl-10"
 								placeholder="Search items..."> <i
 								class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
 						</div>
@@ -139,7 +147,7 @@
 						</c:if>
 						<c:forEach begin="1" end="${totalPages}" var="i">
 							<a href="ItemServlet?page=${i}"
-								class="px-4 py-2 ${i == currentPage ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white' : 'bg-white/10 border border-white/20 text-white hover:bg-white/20'} rounded-lg font-medium">
+								class="px-4 py-2 ${i == currentPage ? 'bg-gradient-to-br from-teal-100 to-cyan-600 text-white' : 'bg-white/10 border border-white/20 text-white hover:bg-white/20'} rounded-lg font-medium">
 								${i} </a>
 						</c:forEach>
 						<c:if test="${currentPage < totalPages}">
@@ -155,11 +163,11 @@
 				<div id="addItemModal"
 					class="fixed  inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
 					<div
-						class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 rounded-2xl w-full max-w-3xl  p-6 relative shadow-2xl">
+						class="bg-gradient-to-br from-teal-400 to-cyan-600 rounded-2xl w-full max-w-3xl  p-6 relative shadow-2xl">
 						<h2 class="text-white text-2xl font-bold mb-4">Add Item</h2>
 						<c:if test="${not empty errors}">
 							<div
-								class="mb-4 text-pink-300 text-sm bg-white/10 border border-pink-400/40 rounded-lg p-3">
+								class="mb-4 text-red-400 text-sm bg-white/10 border border-red-500 rounded-lg p-3">
 								<c:forEach var="err" items="${errors}">
 									<div>⚠️ ${err}</div>
 								</c:forEach>
@@ -173,20 +181,20 @@
 							<div class="mb-4">
 								<label class="block text-white/90 font-medium mb-2 text-sm"><i
 									class="fas fa-barcode mr-2"></i>Item Code <span
-									class="text-pink-300">*</span></label> <input type="text"
+									class="text-red-400">*</span></label> <input type="text"
 									name="item_code"
 									value="${formItemCode != null ? formItemCode : ''}"
-									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 									placeholder="Enter item code">
 							</div>
 
 							<!-- Name -->
 							<div class="mb-4">
 								<label class="block text-white/90 font-medium mb-2 text-sm"><i
-									class="fas fa-box mr-2"></i>Name <span class="text-pink-300">*</span></label>
+									class="fas fa-box mr-2"></i>Name <span class="text-red-400">*</span></label>
 								<input type="text" name="name"
 									value="${formName != null ? formName : ''}"
-									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 									placeholder="Enter item name">
 							</div>
 
@@ -194,10 +202,10 @@
 							<div class="mb-4">
 								<label class="block text-white/90 font-medium mb-2 text-sm"><i
 									class="fas fa-money-bill-wave mr-2"></i>Purchase Price <span
-									class="text-pink-300">*</span></label> <input type="text"
+									class="text-red-400">*</span></label> <input type="text"
 									name="purchase_price"
 									value="${formPurchasePrice != null ? formPurchasePrice : ''}"
-									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 									placeholder="Enter purchase price">
 							</div>
 
@@ -205,10 +213,10 @@
 							<div class="mb-4">
 								<label class="block text-white/90 font-medium mb-2 text-sm"><i
 									class="fas fa-dollar-sign mr-2"></i>Selling Price <span
-									class="text-pink-300">*</span></label> <input type="text"
+									class="text-red-400">*</span></label> <input type="text"
 									name="selling_price"
 									value="${formSellingPrice != null ? formSellingPrice : ''}"
-									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 									placeholder="Enter selling price">
 							</div>
 
@@ -216,10 +224,10 @@
 							<div class="mb-4">
 								<label class="block text-white/90 font-medium mb-2 text-sm"><i
 									class="fas fa-layer-group mr-2"></i>Stock Quantity <span
-									class="text-pink-300">*</span></label> <input type="text"
+									class="text-red-400">*</span></label> <input type="text"
 									name="stock_quantity"
 									value="${formStock != null ? formStock : ''}"
-									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 									placeholder="Enter stock quantity">
 							</div>
 							<div></div>
@@ -238,11 +246,11 @@
 				<div id="editModal"
 					class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
 					<div
-						class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 rounded-2xl  w-full max-w-3xl p-6 relative shadow-2xl">
+						class="bg-gradient-to-br from-teal-400 to-cyan-600 rounded-2xl  w-full max-w-3xl p-6 relative shadow-2xl">
 						<h2 class="text-white text-2xl font-bold mb-4">Edit Item</h2>
 						<c:if test="${not empty errors}">
 							<div
-								class="mb-4 text-pink-300 text-sm bg-white/10 border border-pink-400/40 rounded-lg p-3">
+								class="mb-4 text-white bg-red-500 text-sm  border border-red-600 rounded-lg p-3">
 								<c:forEach var="err" items="${errors}">
 									<div>⚠️ ${err}</div>
 								</c:forEach>
@@ -253,40 +261,82 @@
 								type="hidden" id="editId" name="id"
 								value="${editId != null ? editId : ''}">
 
-							<div class="mb-4">
-								<label class="block text-white/90 font-medium mb-2 text-sm">Item
-									Code</label> <input type="text" id="editItemCode" name="item_code"
-									value="${formItemCode != null ? formItemCode : ''}"
-									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white">
+							
+							<div class="mb-6">
+								<label class="block text-white/90 font-medium mb-2 text-sm">
+									<i class="fas fa-barcode mr-2"></i>Item
+									Code <span
+									class="text-red-400">*</span>
+								</label>
+								<div class="relative">
+									<input type="text" id="editItemCode" name="item_code"
+									value="${formItemCode != null ? formItemCode : ''}" 
+										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+										placeholder="Enter item code">
+								</div>
 							</div>
-							<div class="mb-4">
-								<label class="block text-white/90 font-medium mb-2 text-sm">Name</label>
-								<input type="text" id="editName" name="name"
+							
+							<div class="mb-6">
+								<label class="block text-white/90 font-medium mb-2 text-sm">
+									<i class="fas fa-box mr-2"></i>Name<span
+									class="text-red-400">*</span>
+								</label>
+								<div class="relative">
+									<input type="text" id="editName" name="name"
 									value="${formName != null ? formName : ''}"
-									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white">
+										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+										placeholder="Enter item name">
+								</div>
 							</div>
-							<div class="mb-4">
-								<label class="block text-white/90 font-medium mb-2 text-sm">Purchase
-									Price</label> <input type="text" id="editPurchasePrice"
+							
+							
+							
+							<div class="mb-6">
+								<label class="block text-white/90 font-medium mb-2 text-sm">
+									<i class="fas fa-money-bill-wave mr-2"></i>Purchase
+									Price<span
+									class="text-red-400">*</span>
+								</label>
+								<div class="relative">
+									<input type="text" id="editPurchasePrice"
 									name="purchase_price"
 									value="${formPurchasePrice != null ? formPurchasePrice : ''}"
-									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white">
+										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+										placeholder="Enter purchase price">
+								</div>
 							</div>
-							<div class="mb-4">
-								<label class="block text-white/90 font-medium mb-2 text-sm">Selling
-									Price</label> <input type="text" id="editSellingPrice"
+							
+							<div class="mb-6">
+								<label class="block text-white/90 font-medium mb-2 text-sm">
+									<i class="fas fa-dollar-sign mr-2"></i>Selling
+									Price<span
+									class="text-red-400">*</span>
+								</label>
+								<div class="relative">
+									<input type="text" id="editSellingPrice"
 									name="selling_price"
 									value="${formSellingPrice != null ? formSellingPrice : ''}"
-									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white">
+										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+										placeholder="Enter selling price">
+								</div>
 							</div>
-							<div class="mb-4">
-								<label class="block text-white/90 font-medium mb-2 text-sm">Stock
-									Quantity</label> <input type="text" id="editStockQuantity"
+							
+							<div class="mb-6">
+								<label class="block text-white/90 font-medium mb-2 text-sm">
+									<i class="fas fa-layer-group mr-2"></i>Stock
+									Quantity<span
+									class="text-red-400">*</span>
+								</label>
+								<div class="relative">
+									<input type="text" id="editStockQuantity"
 									name="stock_quantity"
 									value="${formStock != null ? formStock : ''}"
-									class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white">
+										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+										placeholder="Enter stock quantity">
+								</div>
 							</div>
-
+							
+							
 						<div></div>
 							<div class="flex justify-end space-x-3 col-span-2">
 								<button type="button" onclick="closeEditModal()"
@@ -303,7 +353,7 @@
 				<div id="deleteModal"
 					class="fixed inset-0 flex items-center justify-center bg-black/50 hidden z-50">
 					<div
-						class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-6 rounded-2xl shadow-lg w-96">
+						class="bg-gradient-to-br from-teal-400 to-cyan-600 p-6 rounded-2xl shadow-lg w-96">
 						<h2 class="text-lg font-semibold text-white mb-4">
 							<i class="fas fa-exclamation-triangle text-yellow-400 mr-2"></i>
 							Confirm Delete

@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pahana.model.Customer;
+
 import com.pahana.model.Item;
 import com.pahana.util.DBConnection; // Make sure you have a DB connection utility
 
@@ -146,4 +146,36 @@ public class ItemDao {
 		}
 		return null;
 	}
+	
+	//getItemToBillingPage
+	 public List<Item> getAllItems(String keyword) {
+	        List<Item> list = new ArrayList<>();
+	        String sql = "SELECT * FROM item";
+	        if (keyword != null && !keyword.trim().isEmpty()) {
+	            sql += " WHERE name LIKE ? OR description LIKE ?";
+	        }
+
+	        try (Connection con = DBConnection.getConnection();
+	             PreparedStatement ps = con.prepareStatement(sql)) {
+
+	            if (keyword != null && !keyword.trim().isEmpty()) {
+	                ps.setString(1, "%" + keyword + "%");
+	                ps.setString(2, "%" + keyword + "%");
+	            }
+
+	            ResultSet rs = ps.executeQuery();
+	            while (rs.next()) {
+	                Item item = new Item();
+	                item.setId(rs.getInt("id"));
+	                item.setName(rs.getString("name"));
+	                item.setSellingPrice(rs.getBigDecimal("price"));
+	                item.setStockQuantity(rs.getInt("qty"));
+	                list.add(item);
+	            }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return list;
+	    }
 }
