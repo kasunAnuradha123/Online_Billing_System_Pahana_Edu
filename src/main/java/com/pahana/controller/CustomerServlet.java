@@ -1,4 +1,4 @@
-package com.pahana.controller.customer;
+package com.pahana.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;

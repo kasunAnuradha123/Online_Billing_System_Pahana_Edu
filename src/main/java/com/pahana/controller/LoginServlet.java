@@ -1,4 +1,4 @@
-package com.pahana.controller.auth;
+package com.pahana.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
