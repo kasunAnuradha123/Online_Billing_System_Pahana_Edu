@@ -45,8 +45,8 @@ public class Customer {
 		return telephone_number;
 	}
 
-	public void setTP(String Tp) {
-		this.telephone_number = Tp;
+	public void setTP(String tp) {
+		this.telephone_number = tp;
 	}
 
 	public Date getCreatedAt() {

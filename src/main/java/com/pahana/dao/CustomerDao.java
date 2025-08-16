@@ -115,6 +115,29 @@ public class CustomerDao {
         }
         return prefix + "0001";
     }
+    //get customer to billing page
+    public List<Customer> getAllCustomers() {
+        List<Customer> customers = new ArrayList<>();
+        String sql = "SELECT id, account_number, name, address, telephone_number FROM customers ORDER BY account_number DESC";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Customer c = new Customer();
+                c.setId(rs.getInt("id"));
+                c.setAccountNumber(rs.getString("account_number"));
+                c.setName(rs.getString("name"));
+                c.setTP(rs.getString("telephone_number"));
+                c.setAddress(rs.getString("address"));
+                customers.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
 
 
 }

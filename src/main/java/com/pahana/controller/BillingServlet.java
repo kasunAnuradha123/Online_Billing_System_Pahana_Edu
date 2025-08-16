@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pahana.dao.CustomerDao;
 import com.pahana.dao.ItemDao;
+import com.pahana.model.Customer;
 import com.pahana.model.Item;
 
 /**
@@ -31,16 +33,21 @@ public class BillingServlet extends HttpServlet {
                 page = Integer.parseInt(request.getParameter("page"));
             } catch (NumberFormatException ignored) {}
         }
-
+        //getItems
         ItemDao dao = new ItemDao();
         List<Item> items = dao.getItems(page, PAGE_SIZE);
         int totalItems = dao.getItemCount();
         int totalPages = (int) Math.ceil((double) totalItems / PAGE_SIZE);
+        
+        //getCustomers
+        CustomerDao customerDao = new CustomerDao();
+        List<Customer> customers = customerDao.getAllCustomers();
 
         request.setAttribute("items", items);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("totalItems", totalItems);
+        request.setAttribute("customers", customers);
         
         request.getRequestDispatcher("View/billing/index.jsp").forward(request, response);
     }
