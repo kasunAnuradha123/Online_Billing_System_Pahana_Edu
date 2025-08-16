@@ -15,7 +15,7 @@ public class CustomerDao {
 	public List<Customer> getCustomers(int page, int pageSize) {
         List<Customer> customers = new ArrayList<>();
         String sql = "SELECT id, account_number, name, address, telephone_number, created_at " +
-                "FROM customers LIMIT ?, ?";
+                "FROM customers ORDER BY id DESC LIMIT ?, ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

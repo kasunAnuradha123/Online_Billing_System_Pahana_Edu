@@ -48,10 +48,28 @@
 
 			<main class="flex-1 p-6 overflow-y-auto">
 				<!-- Customer Table -->
+				
+<%
+				String successMessage = (String) session.getAttribute("successMessage");
+				if (successMessage != null) {
+				%>
+				<div
+					class="fixed top-4 right-4 max-w-sm w-full bg-green-600 border border-green-400 text-green-100 rounded-lg shadow-lg p-4 flex items-center animate-fade-in-out">
+					<i class="fas fa-check-circle mr-3 text-green-200 text-lg"></i> <span
+						class="flex-1 text-sm font-medium"><%=successMessage%></span>
+					<button onclick="this.parentElement.remove()"
+						class="ml-3 text-green-200 hover:text-white font-bold">&times;</button>
+				</div>
+				<%
+				session.removeAttribute("successMessage");
+				}
+				%>
 				<div
 					class="bg-white/10 backdrop-blur-md rounded-xl border border-white/20 shadow-2xl overflow-hidden">
 					<div class="overflow-x-auto">
+					
 						<table class="min-w-full">
+						
 							<thead class="bg-white/5 backdrop-blur-sm">
 								<tr>
 									<th
@@ -107,10 +125,14 @@
 												<i class="fas fa-edit"></i>
 											</button>
 
-											<button onclick="deleteCustomer(${customer.id})"
+											<button type="button"
+												onclick="openDeleteModal(${customer.id})"
 												class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transition-colors duration-200">
 												<i class="fas fa-trash"></i>
 											</button>
+
+
+
 										</td>
 									</tr>
 								</c:forEach>
@@ -156,6 +178,15 @@
 					<div
 						class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 rounded-2xl w-96 p-6 relative shadow-2xl">
 						<h2 class="text-white text-2xl font-bold mb-4">Add Customer</h2>
+						<c:if test="${not empty errors}">
+							<div
+								class="mb-4 text-pink-300 text-sm bg-white/10 border border-pink-400/40 rounded-lg p-3">
+								<c:forEach var="err" items="${errors}">
+									<div>⚠️ ${err}</div>
+								</c:forEach>
+							</div>
+						</c:if>
+
 						<form action="CustomerServlet" method="post">
 							<input type="hidden" name="action" value="add">
 
@@ -166,9 +197,9 @@
 									class="text-pink-300">*</span>
 								</label>
 								<div class="relative">
-									<input type="text" name="name"
+									<input type="text" name="name"  value="${formName != null ? formName : ''}"
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
-										placeholder="Enter customer name" required>
+										placeholder="Enter customer name" >
 									<div
 										class="absolute inset-0 rounded-xl bg-gradient-to-r from-pink-400/20 to-purple-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
 								</div>
@@ -181,9 +212,9 @@
 									class="text-pink-300">*</span>
 								</label>
 								<div class="relative">
-									<input type="text" name="tp"
+									<input type="text" name="tp" value="${formTP != null ? formTP : ''}"
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
-										placeholder="Enter contact number" required>
+										placeholder="Enter contact number" >
 									<div
 										class="absolute inset-0 rounded-xl bg-gradient-to-r from-pink-400/20 to-purple-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
 								</div>
@@ -195,7 +226,7 @@
 									<i class="fas fa-map-marker-alt mr-2"></i>Address
 								</label>
 								<div class="relative">
-									<input type="text" name="address"
+									<input type="text" name="address"  value="${formAddress != null ? formAddress : ''}"
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter address">
 									<div
@@ -208,7 +239,7 @@
 								<button type="button" onclick="closeAddModal()"
 									class="px-5 py-2 bg-white/10 border border-white/20 text-white rounded-xl hover:bg-white/20 transition-all duration-300">
 									Cancel</button>
-								<button onclick="validateForm()" type="submit"
+								<button type="submit"
 									class="px-5 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl transition-all duration-300">
 									Add</button>
 							</div>
@@ -224,9 +255,18 @@
 					<div
 						class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 rounded-2xl w-96 p-6 relative shadow-2xl">
 						<h2 class="text-white text-2xl font-bold mb-4">Edit Customer</h2>
+						<c:if test="${not empty errors}">
+							<div
+								class="mb-4 text-pink-300 text-sm bg-white/10 border border-pink-400/40 rounded-lg p-3">
+								<c:forEach var="err" items="${errors}">
+									<div>⚠️ ${err}</div>
+								</c:forEach>
+							</div>
+						</c:if>
+
 						<form action="CustomerServlet" method="post">
 							<input type="hidden" name="action" value="edit"> <input
-								type="hidden" id="editId" name="id">
+								type="hidden" id="editId" name="id" value="${editId != null ? editId : ''}" >
 
 							<!-- Name -->
 							<div class="mb-6">
@@ -235,7 +275,7 @@
 									class="text-pink-300">*</span>
 								</label>
 								<div class="relative">
-									<input type="text" id="editName" name="name" required
+									<input type="text" id="editName" name="name" name="name" value="${formName != null ? formName : ''}" 
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter customer name">
 								</div>
@@ -248,7 +288,7 @@
 									class="text-pink-300">*</span>
 								</label>
 								<div class="relative">
-									<input type="text" id="editTP" name="tp" required
+									<input type="text" id="editTP" name="tp"  value="${formTP != null ? formTP : ''}" 
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter contact number">
 								</div>
@@ -260,7 +300,7 @@
 									<i class="fas fa-map-marker-alt mr-2"></i>Address
 								</label>
 								<div class="relative">
-									<input type="text" id="editAddress" name="address"
+									<input type="text" id="editAddress" name="address" value="${formAddress != null ? formAddress : ''}"
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter address">
 								</div>
@@ -271,7 +311,7 @@
 								<button type="button" onclick="closeEditModal()"
 									class="px-5 py-2 bg-white/10 border border-white/20 text-white rounded-xl hover:bg-white/20 transition-all duration-300">
 									Cancel</button>
-								<button onclick="validateForm()" type="submit"
+								<button type="submit"
 									class="px-5 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl transition-all duration-300">
 									Save</button>
 							</div>
@@ -280,6 +320,33 @@
 							class="absolute top-3 right-3 text-white hover:text-pink-300 text-lg">&times;</button>
 					</div>
 				</div>
+
+				<!-- Delete Confirmation Modal -->
+				<div id="deleteModal"
+					class="fixed inset-0 flex items-center justify-center bg-black/50 hidden z-50">
+					<div class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-6 rounded-2xl shadow-lg w-96">
+						<h2 class="text-lg font-semibold text-white mb-4">
+							<i class="fas fa-exclamation-triangle text-yellow-400 mr-2"></i>
+							Confirm Delete
+						</h2>
+						<p class="text-white/80 mb-6">Are you sure you want to delete
+							this customer?</p>
+						<div class="flex justify-end gap-3">
+							<button type="button" onclick="closeDeleteModal()"
+								class="px-5 py-2 bg-white/10 border border-white/20 text-white rounded-xl hover:bg-white/20 transition-all duration-300">
+								Cancel</button>
+							<form method="post" action="CustomerServlet">
+								<input type="hidden" name="action" value="delete"> <input
+									type="hidden" name="id" id="deleteCustomerId">
+								<button type="submit"
+									class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white transition">
+									Yes, Delete</button>
+							</form>
+						</div>
+					</div>
+				</div>
+
+
 
 			</main>
 		</div>
@@ -303,43 +370,35 @@
 	function closeEditModal() {
     document.getElementById('editModal').classList.add('hidden');
     }
+	
+	<% String openModal = (String) request.getAttribute("openModal"); %>
+	<% if ("add".equals(openModal)) { %>
+	    document.getElementById('addCustomerModal').classList.remove('hidden');
+	<% } else if ("edit".equals(openModal)) { %>
+	    document.getElementById('editModal').classList.remove('hidden');
+	<% } %>
 	<!-- Delete -->
-	function deleteCustomer(id) {
-    if (confirm("Are you sure you want to delete this customer?")) {
-        var form = document.createElement("form");
-        form.method = "post";
-        form.action = "CustomerServlet";
-        form.innerHTML = '<input type="hidden" name="action" value="delete">' +
-                         '<input type="hidden" name="id" value="' + id + '">';
-        document.body.appendChild(form);
-        form.submit();
-    }
-    
-    <!-- validation -->>
-    function validateForm() {
-        const name = document.getElementById('name').value.trim();
-        const tel = document.getElementById('telephone').value.trim();
-        const errorMsg = document.getElementById('errorMsg');
-        let errors = [];
+	 function openDeleteModal(id) {
+	        document.getElementById("deleteModal").classList.remove("hidden");
+	        document.getElementById("deleteCustomerId").value = id; // set the hidden input value
+	    }
 
-        // Name length
-        if (name.length === 0) errors.push("Name is required.");
-        if (name.length > 100) errors.push("Name cannot exceed 100 characters.");
+	    function closeDeleteModal() {
+	        document.getElementById("deleteModal").classList.add("hidden");
+	    }
 
-        // Telephone numeric
-        if (!/^\d+$/.test(tel)) errors.push("Telephone number must contain digits only.");
-        if (tel.length >= 10) errors.push("Telephone number cannot exceed 10 digits.");
-
-        if (errors.length > 0) {
-            errorMsg.innerHTML = errors.join("<br>");
-            return false; // prevent form submission
-        } else {
-            errorMsg.innerHTML = "";
-            document.querySelector("form").submit(); // submit if valid
-        }
-    }
-}
 </script>
+<style>
+@keyframes fade-in-out {
+  0%, 100% { opacity: 0; transform: translateY(-10px); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-out {
+  animation: fade-in-out 3s ease forwards;
+}
+</style>
+
+
 
 </body>
 </html>
