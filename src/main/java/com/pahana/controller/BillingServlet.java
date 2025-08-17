@@ -114,6 +114,44 @@ public class BillingServlet extends HttpServlet {
                     }
                     i++;
                 }
+                
+                //send sms
+             
+//                CustomerDao customerDao = new CustomerDao();
+//                Customer customer = customerDao.getCustomerById(customerId);
+
+//                String sms = "Thank you for shopping at Pahana Edu BookShop! "
+//                        + "Your order #" + orderId
+//                        + " is confirmed. Total: LKR " + String.format("%.2f", total)
+//                        + ". Visit us again!";
+//
+//
+//                if (sms.length() > 160) {
+//                    sms = sms.substring(0, 160);
+//                }
+//
+//                String encodedMessage = java.net.URLEncoder.encode(sms, "UTF-8");
+//                String userId = "30080";       
+//                String apiKey = "37BDCgiy9EZkFyY14GMk";
+//                String localNumber = customer.getTP();    
+//                String internationalNumber = "+94" + localNumber.substring(1);
+//                String urlStr = "https://app.notify.lk/api/v1/send"
+//                        + "?user_id=" + userId
+//                        + "&api_key=" + apiKey
+//                        + "&sender_id=NotifyDEMO"
+//                        + "&to=" + internationalNumber
+//                        + "&message=" + encodedMessage;
+//
+//                try {
+//                    java.net.URL url = new java.net.URL(urlStr);
+//                    java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
+//                    conn.setRequestMethod("GET");
+//                    int responseCode = conn.getResponseCode();
+//                    System.out.println("SMS response code: " + responseCode);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
 
                 // Forward to print page
                 request.setAttribute("billingId", orderId);
