@@ -78,15 +78,15 @@
 					<p class="text-white/60 text-xs">Sales & Statistics</p>
 				</div> <i
 				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
-			</a> <a href="settings.jsp"
+			</a> <a href="<%=request.getContextPath()%>/UserServlet"
 				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
 				<div
 					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-gray-500 to-slate-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-gray-500/25 transition-all duration-300">
 					<i class="fas fa-cog text-white text-sm"></i>
 				</div>
 				<div class="flex-1">
-					<span class="text-white font-medium">Settings</span>
-					<p class="text-white/60 text-xs">System Configuration</p>
+					<span class="text-white font-medium">System Users</span>
+					<p class="text-white/60 text-xs">System User Management</p>
 				</div> <i
 				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
 			</a>

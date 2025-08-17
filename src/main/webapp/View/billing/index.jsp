@@ -121,20 +121,18 @@
 							<h2 class="text-xl font-semibold mb-4">Billing Cart</h2>
 
 							<!-- Customer Selection -->
-							<div class="flex justify-between mb-4">
+							<div class="  mb-4">
 								<div class="relative  mb-4">
 									<input type="text" id="customerSearch"
 										placeholder=" 🔍 Search Customer..."
-										class="flex-1 border rounded-lg px-3 py-2 w-[290px] focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+										class="flex-1 border rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-cyan-500 focus:outline-none">
 									<div id="customerResults"
-										class="absolute left-0 right-0 bg-white/90 max-h-48 overflow-y-auto border rounded-lg mt-1 hidden z-50"></div>
+										class="absolute left-0 right-0 bg-white/90  overflow-y-auto border rounded-lg mt-1 hidden z-50"></div>
 								</div>
 
 
 
-								<button
-									class="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-3 h-10 rounded-lg hover:from-cyan-600 hover:to-teal-600">Add
-									New</button>
+								
 							</div>
 							<div id="selectedCustomer" class="p-2 text-sm text-black "></div>
 
