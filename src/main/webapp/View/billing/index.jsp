@@ -138,7 +138,8 @@
 							</div>
 							<div id="selectedCustomer" class="p-2 text-sm text-black "></div>
 
-							<div class="divide-y max-h-60 overflow-auto p-2 space-y-2">
+							<div id="cart-items"
+								class="divide-y max-h-60 overflow-auto p-2 space-y-2">
 								<div id="cart-items" class="divide-y "></div>
 
 							</div>
@@ -160,9 +161,19 @@
 							</div>
 
 							<!-- Checkout Button -->
-							<button
+							<button id="savePrintBtn"
 								class="mt-6 w-full bg-gradient-to-r from-teal-500 to-cyan-600 text-white px-4 py-3 rounded-lg text-lg font-semibold hover:from-teal-600 hover:to-cyan-700">
 								Save & Print</button>
+								
+								<form id="billingForm" action="BillingServlet" method="post">
+    <input type="hidden" name="customerId" id="formCustomerId">
+    <input type="hidden" name="subtotal" id="formSubtotal">
+    <input type="hidden" name="discount" id="formDiscount">
+    <input type="hidden" name="total" id="formTotal">
+    <!-- We'll append item details dynamically -->
+    <div id="formItems"></div>
+</form>
+								
 						</div>
 					</div>
 				</div>
@@ -370,6 +381,65 @@ document.addEventListener('click', function(e) {
         resultsDiv.classList.add('hidden');
     }
 });
+const savePrintBtn = document.getElementById('savePrintBtn');
+savePrintBtn.addEventListener('click', function(e) {
+    if (!cart.length) {
+        alert("Cart is empty!");
+        return;
+    }
+
+    if (!searchInput.value) {
+        alert("Select a customer!");
+        return;
+    }
+
+    const selectedCustomer = customers.find(c => c.name === searchInput.value);
+    if (!selectedCustomer) {
+        alert("Invalid customer!");
+        return;
+    }
+
+    const discount = parseFloat(document.getElementById('discount').value) || 0;
+    const subtotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+    const total = subtotal - discount;
+
+    // Fill hidden form inputs
+    document.getElementById('formCustomerId').value = selectedCustomer.id;
+    document.getElementById('formSubtotal').value = subtotal;
+    document.getElementById('formDiscount').value = discount;
+    document.getElementById('formTotal').value = total;
+
+    // Clear previous item inputs
+    const formItemsDiv = document.getElementById('formItems');
+    formItemsDiv.innerHTML = '';
+
+    // Add items dynamically
+    cart.forEach((item, index) => {
+        const inputId = document.createElement('input');
+        inputId.type = 'hidden';
+        inputId.name = `items[\${index}][itemId]`;
+        inputId.value = item.id;
+
+        const inputQty = document.createElement('input');
+        inputQty.type = 'hidden';
+        inputQty.name = `items[\${index}][qty]`;
+        inputQty.value = item.qty;
+
+        const inputPrice = document.createElement('input');
+        inputPrice.type = 'hidden';
+        inputPrice.name = `items[\${index}][price]`;
+        inputPrice.value = item.price;
+
+        formItemsDiv.appendChild(inputId);
+        formItemsDiv.appendChild(inputQty);
+        formItemsDiv.appendChild(inputPrice);
+    });
+
+    // Submit the form
+    document.getElementById('billingForm').submit();
+});
+
+
 
 </script>
 </body>

@@ -119,7 +119,7 @@ public class ItemDao {
 		}
 	}
 
-	// Optional: Get item by ID
+	//  Get item by ID
 	public Item getItemById(int id) {
 		String sql = "SELECT * FROM items WHERE id=?";
 
@@ -178,4 +178,6 @@ public class ItemDao {
 	        }
 	        return list;
 	    }
+	 
+	 
 }

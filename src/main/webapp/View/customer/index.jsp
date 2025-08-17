@@ -12,7 +12,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-	
+
 </head>
 <body
 	class="min-h-screen bg-gradient-to-br from-teal-400 to-cyan-600  font-sans">
@@ -57,8 +57,8 @@
 
 			<main class="flex-1 p-6 overflow-y-auto">
 				<!-- Customer Table -->
-				
-<%
+
+				<%
 				String successMessage = (String) session.getAttribute("successMessage");
 				if (successMessage != null) {
 				%>
@@ -76,9 +76,9 @@
 				<div
 					class="bg-white/10 backdrop-blur-md rounded-xl border border-white/20 shadow-2xl overflow-hidden">
 					<div class="overflow-x-auto">
-					
+
 						<table class="min-w-full">
-						
+
 							<thead class="bg-white/5 backdrop-blur-sm">
 								<tr>
 									<th
@@ -202,13 +202,13 @@
 							<!-- Name -->
 							<div class="mb-6">
 								<label class="block text-white/90 font-medium mb-2 text-sm">
-									<i class="fas fa-user mr-2"></i>Name <span
-									class="text-red-400">*</span>
+									<i class="fas fa-user mr-2"></i>Name <span class="text-red-400">*</span>
 								</label>
 								<div class="relative">
-									<input type="text" name="name"  value="${formName != null ? formName : ''}"
+									<input type="text" name="name"
+										value="${formName != null ? formName : ''}"
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
-										placeholder="Enter customer name" >
+										placeholder="Enter customer name">
 									<div
 										class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400/20 to-cyan-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
 								</div>
@@ -221,9 +221,10 @@
 									class="text-red-400">*</span>
 								</label>
 								<div class="relative">
-									<input type="text" name="tp" value="${formTP != null ? formTP : ''}"
+									<input type="text" name="tp"
+										value="${formTP != null ? formTP : ''}"
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
-										placeholder="Enter contact number" >
+										placeholder="Enter contact number">
 									<div
 										class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400/20 to-cyan-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
 								</div>
@@ -235,7 +236,8 @@
 									<i class="fas fa-map-marker-alt mr-2"></i>Address
 								</label>
 								<div class="relative">
-									<input type="text" name="address"  value="${formAddress != null ? formAddress : ''}"
+									<input type="text" name="address"
+										value="${formAddress != null ? formAddress : ''}"
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter address">
 									<div
@@ -253,7 +255,7 @@
 									Add</button>
 							</div>
 						</form>
-						
+
 					</div>
 				</div>
 				<!-- Edit Customer Modal -->
@@ -273,16 +275,17 @@
 
 						<form action="CustomerServlet" method="post">
 							<input type="hidden" name="action" value="edit"> <input
-								type="hidden" id="editId" name="id" value="${editId != null ? editId : ''}" >
+								type="hidden" id="editId" name="id"
+								value="${editId != null ? editId : ''}">
 
 							<!-- Name -->
 							<div class="mb-6">
 								<label class="block text-white/90 font-medium mb-2 text-sm">
-									<i class="fas fa-user mr-2"></i>Name <span
-									class="text-red-400">*</span>
+									<i class="fas fa-user mr-2"></i>Name <span class="text-red-400">*</span>
 								</label>
 								<div class="relative">
-									<input type="text" id="editName" name="name" name="name" value="${formName != null ? formName : ''}" 
+									<input type="text" id="editName" name="name" name="name"
+										value="${formName != null ? formName : ''}"
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter customer name">
 								</div>
@@ -295,7 +298,8 @@
 									class="text-red-400">*</span>
 								</label>
 								<div class="relative">
-									<input type="text" id="editTP" name="tp"  value="${formTP != null ? formTP : ''}" 
+									<input type="text" id="editTP" name="tp"
+										value="${formTP != null ? formTP : ''}"
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter contact number">
 								</div>
@@ -307,7 +311,8 @@
 									<i class="fas fa-map-marker-alt mr-2"></i>Address
 								</label>
 								<div class="relative">
-									<input type="text" id="editAddress" name="address" value="${formAddress != null ? formAddress : ''}"
+									<input type="text" id="editAddress" name="address"
+										value="${formAddress != null ? formAddress : ''}"
 										class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
 										placeholder="Enter address">
 								</div>
@@ -323,14 +328,15 @@
 									Save</button>
 							</div>
 						</form>
-						
+
 					</div>
 				</div>
 
 				<!-- Delete Confirmation Modal -->
 				<div id="deleteModal"
 					class="fixed inset-0 flex items-center justify-center bg-black/50 hidden z-50">
-					<div class="bg-gradient-to-br from-teal-400 to-cyan-600 p-6 rounded-2xl shadow-lg w-96">
+					<div
+						class="bg-gradient-to-br from-teal-400 to-cyan-600 p-6 rounded-2xl shadow-lg w-96">
 						<h2 class="text-lg font-semibold text-white mb-4">
 							<i class="fas fa-exclamation-triangle text-yellow-400 mr-2"></i>
 							Confirm Delete
@@ -377,30 +383,70 @@
     document.getElementById('editModal').classList.add('hidden');
     }
 	
-	<% String openModal = (String) request.getAttribute("openModal"); %>
-	<% if ("add".equals(openModal)) { %>
+	<%String openModal = (String) request.getAttribute("openModal");%>
+	<%if ("add".equals(openModal)) {%>
 	    document.getElementById('addCustomerModal').classList.remove('hidden');
-	<% } else if ("edit".equals(openModal)) { %>
+	<%} else if ("edit".equals(openModal)) {%>
 	    document.getElementById('editModal').classList.remove('hidden');
-	<% } %>
+	<%}%>
 	<!-- Delete -->
 	 function openDeleteModal(id) {
 	        document.getElementById("deleteModal").classList.remove("hidden");
 	        document.getElementById("deleteCustomerId").value = id; // set the hidden input value
 	    }
-
 	    function closeDeleteModal() {
 	        document.getElementById("deleteModal").classList.add("hidden");
 	    }
 
 </script>
-<style>
-@keyframes fade-in-out {
-  0%, 100% { opacity: 0; transform: translateY(-10px); }
-  10%, 90% { opacity: 1; transform: translateY(0); }
+	<style>
+@
+keyframes fade-in-out { 0%, 100% {
+	opacity: 0;
+	transform: translateY(-10px);
+}
+
+10
+
+
+%
+,
+90
+
+
+%
+{
+opacity
+
+
+:
+
+
+1
+;
+
+
+transform
+
+
+:
+
+
+translateY
+(
+
+
+0
+
+
+)
+;
+
+
+}
 }
 .animate-fade-in-out {
-  animation: fade-in-out 3s ease forwards;
+	animation: fade-in-out 3s ease forwards;
 }
 </style>
 

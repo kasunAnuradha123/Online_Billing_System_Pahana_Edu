@@ -44,7 +44,7 @@ public class OrderItem {
 		return item_price;
 	}
 
-	public void setItemPric(BigDecimal item_price) {
+	public void setItemPrice(BigDecimal item_price) {
 		this.item_price = item_price;
 	}
 
@@ -74,4 +74,11 @@ public class OrderItem {
 	public void setCreatedAt(Timestamp created_at) {
 		this.created_at = created_at;
 	}
+
+	public void setItemName(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }

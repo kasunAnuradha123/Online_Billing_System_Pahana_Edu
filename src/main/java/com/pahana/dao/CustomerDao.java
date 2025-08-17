@@ -138,6 +138,33 @@ public class CustomerDao {
         }
         return customers;
     }
+    
+    public Customer getCustomerById(int customerId) {
+        Customer customer = null;
+        String sql = "SELECT * FROM customers WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, customerId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                customer = new Customer();
+                customer.setId(rs.getInt("id"));
+                customer.setName(rs.getString("name"));
+                customer.setTP(rs.getString("telephone_number"));
+                customer.setAddress(rs.getString("address"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customer;
+    }
+
+
 
 
 }
