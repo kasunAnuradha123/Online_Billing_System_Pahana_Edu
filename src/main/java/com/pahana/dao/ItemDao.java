@@ -178,6 +178,17 @@ public class ItemDao {
 	        }
 	        return list;
 	    }
+	 //billing item decrease
+	 public void updateStockQuantity(Item item) throws SQLException {
+		    String sql = "UPDATE items SET stock_quantity = ? WHERE id = ?";
+		    try (Connection conn = DBConnection.getConnection();
+		         PreparedStatement stmt = conn.prepareStatement(sql)) {
+		        stmt.setInt(1, item.getStockQuantity());
+		        stmt.setInt(2, item.getId());
+		        stmt.executeUpdate();
+		    }
+		}
+
 	 
 	 
 }

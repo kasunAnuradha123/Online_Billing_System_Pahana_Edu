@@ -84,6 +84,7 @@ public class BillingServlet extends HttpServlet {
             if (orderId > 0) {
                 // Save Order Items
                 OrderItemDao itemDao = new OrderItemDao();
+                ItemDao itemDataDao = new ItemDao();
                 int i = 0;
                 while (request.getParameter("items[" + i + "][itemId]") != null) {
                 	System.out.println("items[0][itemId] = " + request.getParameter("items[0][itemId]"));
@@ -102,6 +103,15 @@ public class BillingServlet extends HttpServlet {
                     item.setCreatedAt(new java.sql.Timestamp(System.currentTimeMillis()));
 
                     itemDao.saveOrderItem(item);
+                 // Update stock quantity in items table
+                    Item currentItem = itemDataDao.getItemById(itemId);
+                    System.out.print(currentItem);
+                    if (currentItem != null) {
+                        int newStock = currentItem.getStockQuantity() - qty; // subtract sold quantity
+                        if (newStock < 0) newStock = 0; // prevent negative stock
+                        currentItem.setStockQuantity(newStock);
+                        itemDataDao.updateStockQuantity(currentItem); // implement this method in ItemDao
+                    }
                     i++;
                 }
 
