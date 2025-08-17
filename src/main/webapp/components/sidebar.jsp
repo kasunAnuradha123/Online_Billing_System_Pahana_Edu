@@ -74,7 +74,7 @@
 					<i class="fas fa-chart-line text-white text-sm"></i>
 				</div>
 				<div class="flex-1">
-					<span class="text-white font-medium">Reports</span>
+					<span class="text-white font-medium">Sales & Reports</span>
 					<p class="text-white/60 text-xs">Sales & Statistics</p>
 				</div> <i
 				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
