@@ -71,7 +71,9 @@
 									class="bg-white/70 shadow rounded-xl p-4 flex flex-col justify-between min-h-[150px] item-card break-words
                                      data-id="
 									${item.id}" data-name="${fn:toLowerCase(item.name)}"
-									data-id="${item.id}" data-name="${fn:toLowerCase(item.name)}" data-price="${item.sellingPrice}" data-code="${fn:toLowerCase(item.itemCode)}">
+									data-id="${item.id}" data-name="${fn:toLowerCase(item.name)}"
+									data-price="${item.sellingPrice}"
+									data-code="${fn:toLowerCase(item.itemCode)}">
 									<h3 class="text-lg font-semibold truncate"
 										title="${item.itemCode}-${item.name}">${item.itemCode}-${item.name}</h3>
 									<p class="text-black mb-2">Rs. ${item.sellingPrice}</p>
@@ -134,8 +136,12 @@
 									class="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-3 h-10 rounded-lg hover:from-cyan-600 hover:to-teal-600">Add
 									New</button>
 							</div>
-							<div id="selectedCustomer" class="p-2 text-sm text-black"></div>
-							<div id="cart-items" class="divide-y"></div>
+							<div id="selectedCustomer" class="p-2 text-sm text-black "></div>
+
+							<div class="divide-y max-h-60 overflow-auto p-2 space-y-2">
+								<div id="cart-items" class="divide-y "></div>
+
+							</div>
 
 							<!-- Totals -->
 							<div class="mt-6 border-t pt-4 space-y-2">
@@ -228,7 +234,7 @@ function renderCart() {
 
         const removeBtn = document.createElement('button');
         removeBtn.textContent = 'Remove';
-        removeBtn.className = 'px-2 py-1 text-white bg-red-500 rounded hover:bg-red-600';
+        removeBtn.className = 'px-2 py-1 text-white bg-red-500 rounded hover:bg-red-600 rounded-md';
         removeBtn.dataset.id = item.id;
 
         qtyDiv.appendChild(qtyInput);
@@ -337,13 +343,18 @@ searchInput.addEventListener('input', function() {
 
             div.addEventListener('click', function() {
                 searchInput.value = c.name;
-                console.log( c);
+                console.log(c)
                 selectedDiv.innerHTML = `
-                    <p class="text-black"}>Account Number: ${c.accountNumber}</p>
-                    <p>Name: ${c.name}</p>
-                    <p>Contact: ${c.TP}</p>
-                    <p>Address: ${c.address}</p>
+                	<div class="bg-cyan-50 p-4 rounded-lg shadow-sm border border-cyan-200">
+                    <h3 class="text-lg font-semibold text-cyan-700 mb-2">Selected Customer</h3>
+                    <p><span class="font-medium">Account Number:</span> \${c.accountNumber}</p>
+                    <p><span class="font-medium">Name:</span> \${c.name}</p>
+                    <p><span class="font-medium">Contact:</span> \${c.TP}</p>
+                    <p><span class="font-medium">Address:</span> \${c.address}</p>
+                </div>
+                
                 `;
+                
                 resultsDiv.classList.add('hidden');
             });
             resultsDiv.appendChild(div);
