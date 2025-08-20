@@ -101,7 +101,7 @@ public class CustomerServlet extends HttpServlet {
                  doGet(request, response);
                  return;
              }
-
+             System.out.println("Adding customer: " + name + ", " + address + ", " + tp);
             Customer c = new Customer();
             c.setAccountNumber(dao.generateAccountNumber());
             c.setName(name);

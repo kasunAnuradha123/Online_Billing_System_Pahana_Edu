@@ -45,7 +45,7 @@
 						<div class="relative">
 							<input type="text" id="searchInput"
 								class="w-64 p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm pl-10"
-								placeholder="Search customers..."> <i
+								placeholder="Search orders..."> <i
 								class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
 						</div>
 

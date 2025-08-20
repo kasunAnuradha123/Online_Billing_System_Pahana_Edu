@@ -100,21 +100,25 @@ public class CustomerDao {
     }
 
     public String generateAccountNumber() {
-        String prefix = "PE-";
-        String sql = "SELECT COUNT(*) + 1 AS nextId FROM customers";
+        String prefix = "PE";
+        String sql = "SELECT account_number FROM customers ORDER BY id DESC LIMIT 1"; 
+
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             if (rs.next()) {
-                int nextId = rs.getInt("nextId");
-                return prefix + String.format("%04d", nextId);
+                String lastAccount = rs.getString("account_number");
+                int lastNumber = Integer.parseInt(lastAccount.substring(prefix.length()));
+                int nextNumber = lastNumber + 1;
+                return prefix + String.format("%04d", nextNumber);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return prefix + "0001";
+        return prefix + "0001"; 
     }
+
     //get customer to billing page
     public List<Customer> getAllCustomers() {
         List<Customer> customers = new ArrayList<>();

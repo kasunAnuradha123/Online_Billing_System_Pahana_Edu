@@ -167,7 +167,7 @@
 						<h2 class="text-white text-2xl font-bold mb-4">Add Item</h2>
 						<c:if test="${not empty errors}">
 							<div
-								class="mb-4 text-red-400 text-sm bg-white/10 border border-red-500 rounded-lg p-3">
+								class="mb-4 text-white bg-red-500 text-sm  border border-red-600 rounded-lg p-3">
 								<c:forEach var="err" items="${errors}">
 									<div>⚠️ ${err}</div>
 								</c:forEach>
