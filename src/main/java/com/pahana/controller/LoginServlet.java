@@ -18,6 +18,15 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        // 🔹 Validate required fields
+        if (username == null || username.trim().isEmpty() ||
+            password == null || password.trim().isEmpty()) {
+
+            request.setAttribute("errorMessage", "Username and Password are required!");
+            request.getRequestDispatcher("View/auth/login.jsp").forward(request, response);
+            return; // stop further execution
+        }
+
         UserDao userDao = new UserDao();
         User user = userDao.getUserByUsernameAndPassword(username, password);
 

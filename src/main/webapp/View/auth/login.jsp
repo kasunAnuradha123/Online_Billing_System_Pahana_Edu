@@ -98,10 +98,10 @@
 					</label>
 					<div class="relative">
 						<input type="text" name="username"
-							class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
-							placeholder="Enter your username" required>
+							class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+							placeholder="Enter your username" >
 						<div
-							class="absolute inset-0 rounded-xl bg-gradient-to-r from-pink-400/20 to-purple-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
+							class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400/20 to-cyan-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
 					</div>
 				</div>
 
@@ -113,14 +113,14 @@
 					</label>
 					<div class="relative">
 						<input type="password" name="password" id="password"
-							class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm pr-12"
-							placeholder="Enter your password" required>
+							class="w-full p-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm pr-12"
+							placeholder="Enter your password" >
 						<button type="button" onclick="togglePassword()"
-							class="absolute top-1/2 right-4 transform -translate-y-1/2 text-white/60 hover:text-white transition-colors duration-200 focus:outline-none">
+							class="absolute top-1/2 right-4 transform -translate-y-1/2 text-black/60 hover:text-black transition-colors duration-200 focus:outline-none">
 							<i id="eyeIcon" class="fas fa-eye"></i>
 						</button>
 						<div
-							class="absolute inset-0 rounded-xl bg-gradient-to-r from-pink-400/20 to-purple-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
+							class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400/20 to-cyan-400/20 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100"></div>
 					</div>
 				</div>
 
@@ -128,18 +128,11 @@
 
 				<!-- Login Button -->
 				<button type="submit"
-					class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold py-4 rounded-xl hover:from-pink-600 hover:to-purple-700 transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-pink-500/25 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:ring-offset-transparent">
+					class="w-full bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-semibold py-4 rounded-xl hover:from-pink-600 hover:to-purple-700 transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-pink-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-offset-2 focus:ring-offset-transparent">
 					<i class="fas fa-sign-in-alt mr-2"></i> Sign In
 				</button>
 
-				<!-- Additional Links -->
-				<div class="mt-6 text-center">
-					<p class="text-white/60 text-sm">
-						New to BookShop? <a href="#"
-							class="text-pink-300 hover:text-pink-200 transition-colors duration-200 hover:underline font-medium">
-							Contact Administrator </a>
-					</p>
-				</div>
+				
 			</div>
 		</form>
 

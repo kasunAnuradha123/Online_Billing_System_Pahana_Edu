@@ -9,6 +9,7 @@ public class Order {
 	private BigDecimal total_amount;
 	private BigDecimal discount;
 	private Timestamp created_at;
+	private String customerName;
 
 	// ID
 	public int getId() {
@@ -54,5 +55,16 @@ public class Order {
 	public void setCreatedAt(Timestamp created_at) {
 		this.created_at = created_at;
 	}
+	
+	
+
+	public String getCustomerName() {
+	    return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+	    this.customerName = customerName;
+	}
+
 
 }

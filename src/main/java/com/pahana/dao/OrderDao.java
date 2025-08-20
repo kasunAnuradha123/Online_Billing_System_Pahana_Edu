@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import com.pahana.model.Order;
 import com.pahana.util.DBConnection;
@@ -67,6 +68,60 @@ public class OrderDao {
 
         return order;
     }
+    
+    public List<Order> getOrders(int page, int pageSize) {
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT o.*, c.name AS customer_name FROM orders o "
+                   + "JOIN customers c ON o.customer_id = c.id "
+                   + "ORDER BY o.id DESC LIMIT ?, ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, (page - 1) * pageSize);
+            stmt.setInt(2, pageSize);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Order o = new Order();
+                o.setId(rs.getInt("id"));
+                o.setCustomerName(rs.getString("customer_name"));
+                o.setTotalAmount(rs.getBigDecimal("total_amount"));
+                o.setDiscount(rs.getBigDecimal("discount"));
+                orders.add(o);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
+    public int getOrderCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM orders";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public boolean deleteOrder(int id) {
+        String sql = "DELETE FROM orders WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
 }
