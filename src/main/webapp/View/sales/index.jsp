@@ -14,7 +14,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 
 
-	
+
 
 </head>
 <body
@@ -45,7 +45,7 @@
 						<div class="relative">
 							<input type="text" id="searchInput"
 								class="w-64 p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:border-transparent transition-all duration-300 backdrop-blur-sm pl-10"
-								placeholder="Search customers..."> <i
+								placeholder="Search orders..."> <i
 								class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
 						</div>
 
@@ -56,11 +56,25 @@
 			<main class="flex-1 p-6 overflow-y-auto">
 				<!-- Sales Table -->
 
-				
-				
+
+
 				<div
 					class="bg-white/10 backdrop-blur-md rounded-xl border border-white/20 shadow-2xl overflow-hidden">
 					<div class="overflow-x-auto">
+						<div class="flex items-center space-x-4 mb-4 p-2">
+							<div>
+								<label class="text-white mr-2">From:</label> <input type="date"
+									id="fromDate" class="rounded px-2 py-1">
+							</div>
+							<div>
+								<label class="text-white mr-2">To:</label> <input type="date"
+									id="toDate" class="rounded px-2 py-1">
+							</div>
+							<button onclick="generateReport()"
+								class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+								<i class="fas fa-file-invoice"></i> Generate Report
+							</button>
+						</div>
 
 						<table class="min-w-full">
 
@@ -103,16 +117,17 @@
 										<td class="px-6 py-4 whitespace-nowrap text-white">${order.totalAmount}</td>
 
 										<td class="px-6 py-4 whitespace-nowrap text-center">
-    <button type="button" onclick="openOrderItemsModal(${order.id})"
-        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg mr-2 transition-colors duration-200">
-        <i class="fas fa-eye"></i>
-    </button>
+											<button type="button"
+												onclick="openOrderItemsModal(${order.id})"
+												class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg mr-2 transition-colors duration-200">
+												<i class="fas fa-eye"></i>
+											</button>
 
-    <button type="button" onclick="openDeleteModal(${order.id})"
-        class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transition-colors duration-200">
-        <i class="fas fa-trash"></i>
-    </button>
-</td>
+											<button type="button" onclick="openDeleteModal(${order.id})"
+												class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transition-colors duration-200">
+												<i class="fas fa-trash"></i>
+											</button>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -155,10 +170,10 @@
 				<div id="orderItemsModal"
 					class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
 					<div
-						class="bg-white rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
-						<h2 class="text-gray-800 text-2xl font-bold mb-4">Order
+						class="bg-gradient-to-br from-teal-400 to-cyan-600 text-white rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
+						<h2 class="text-white text-2xl font-bold mb-4">Order
 							Details</h2>
-						<table class="min-w-full text-gray-700 mb-4">
+						<table class="min-w-full text-white mb-4">
 							<thead>
 								<tr class="border-b">
 									<th class="px-4 py-2 text-left">Item</th>
@@ -210,6 +225,23 @@
 		</div>
 	</div>
 	<script>
+	//report page
+	
+function generateReport() {
+    const from = document.getElementById('fromDate').value;
+    const to = document.getElementById('toDate').value;
+
+    if (!from || !to) {
+        alert('Please select both From and To dates.');
+        return;
+    }
+
+    // Redirect to the report servlet with query parameters
+    window.open('<%=request.getContextPath()%>/SalesReportServlet?from=' + from + '&to=' + to, '_blank');
+
+}
+
+
 	<!-- Modal  -->
 	function openOrderItemsModal(orderId) {
 	    fetch('SalesServlet', {
@@ -251,13 +283,54 @@
 	    }
 
 </script>
-<style>
-@keyframes fade-in-out {
-  0%, 100% { opacity: 0; transform: translateY(-10px); }
-  10%, 90% { opacity: 1; transform: translateY(0); }
+	<style>
+@
+keyframes fade-in-out { 0%, 100% {
+	opacity: 0;
+	transform: translateY(-10px);
+}
+
+10
+
+
+%
+,
+90
+
+
+%
+{
+opacity
+
+
+:
+
+
+1
+;
+
+
+transform
+
+
+:
+
+
+translateY
+(
+
+
+0
+
+
+)
+;
+
+
+}
 }
 .animate-fade-in-out {
-  animation: fade-in-out 3s ease forwards;
+	animation: fade-in-out 3s ease forwards;
 }
 </style>
 </body>
