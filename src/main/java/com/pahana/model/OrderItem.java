@@ -11,7 +11,7 @@ public class OrderItem {
 	private int qty;
 	private BigDecimal total;
 	private Timestamp created_at;
-
+	 private String itemName;
 	// ID
 	public int getId() {
 		return id;
@@ -74,11 +74,9 @@ public class OrderItem {
 	public void setCreatedAt(Timestamp created_at) {
 		this.created_at = created_at;
 	}
-
-	public void setItemName(String name) {
-		// TODO Auto-generated method stub
-		
-	}
+	public String getItemName() { return itemName; }     // <-- ADD
+    public void setItemName(String itemName) { this.itemName = itemName; }
+	
 
 	
 }

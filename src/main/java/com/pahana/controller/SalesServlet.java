@@ -30,7 +30,7 @@ public class SalesServlet extends HttpServlet {
         }
 
         OrderDao orderDao = new OrderDao();
-        OrderItemDao itemDao = new OrderItemDao();
+        
 
         List<Order> orders = orderDao.getOrders(page, PAGE_SIZE); // create this method
         int totalOrders = orderDao.getOrderCount(); // create this method
@@ -51,17 +51,63 @@ public class SalesServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         OrderDao orderDao = new OrderDao();
+        OrderItemDao itemDao = new OrderItemDao();
+        
+        if ("report".equalsIgnoreCase(action)) {
+            String startDate = request.getParameter("startDate");
+            String endDate = request.getParameter("endDate");
+
+            List<Order> reportOrders = orderDao.getOrdersByDateRange(startDate, endDate);
+            request.setAttribute("orders", reportOrders);
+            request.setAttribute("reportMode", true); // flag to show it's a report
+            request.getRequestDispatcher("View/sales/index.jsp").forward(request, response);
+            return;
+        }
 
         if ("delete".equalsIgnoreCase(action)) {
             try {
                 int id = Integer.parseInt(request.getParameter("id"));
-                orderDao.deleteOrder(id); // create this method in OrderDao
+                orderDao.deleteOrder(id); 
                 session.setAttribute("successMessage", "Order deleted successfully!");
             } catch (NumberFormatException e) {
                 session.setAttribute("errorMessage", "Invalid order ID!");
+            }
+        } else if ("view".equalsIgnoreCase(action)) {
+            try {
+                int orderId = Integer.parseInt(request.getParameter("id"));
+                List<OrderItem> items = itemDao.getItemsByOrderId(orderId);
+
+                // Return JSON
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                StringBuilder json = new StringBuilder("[");
+                for (int i = 0; i < items.size(); i++) {
+                    OrderItem item = items.get(i);
+                    json.append("{")
+                        .append("\"name\":\"").append(item.getItemName()).append("\",")
+                        .append("\"itemPrice\":").append(item.getItemPrice()).append(",")
+                        .append("\"qty\":").append(item.getQty()).append(",")
+                        .append("\"total\":").append(item.getTotal())
+                        .append("}");
+                    if (i < items.size() - 1) json.append(",");
+                }
+                json.append("]");
+                response.getWriter().write(json.toString());
+
+                return; // stop further redirect
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error loading items");
+                return;
             }
         }
 
         response.sendRedirect(request.getContextPath() + "/SalesServlet");
     }
+
 }
+
+
+
+

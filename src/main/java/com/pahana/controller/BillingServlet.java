@@ -49,7 +49,7 @@ public class BillingServlet extends HttpServlet {
         //getCustomers
         CustomerDao customerDao = new CustomerDao();
         List<Customer> customers = customerDao.getAllCustomers();
-
+        
         request.setAttribute("items", items);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
@@ -87,7 +87,7 @@ public class BillingServlet extends HttpServlet {
                 ItemDao itemDataDao = new ItemDao();
                 int i = 0;
                 while (request.getParameter("items[" + i + "][itemId]") != null) {
-                	System.out.println("items[0][itemId] = " + request.getParameter("items[0][itemId]"));
+                	
 
                     int itemId = Integer.parseInt(request.getParameter("items[" + i + "][itemId]"));
                     int qty = Integer.parseInt(request.getParameter("items[" + i + "][qty]"));
@@ -105,7 +105,7 @@ public class BillingServlet extends HttpServlet {
                     itemDao.saveOrderItem(item);
                  // Update stock quantity in items table
                     Item currentItem = itemDataDao.getItemById(itemId);
-                    System.out.print(currentItem);
+                   
                     if (currentItem != null) {
                         int newStock = currentItem.getStockQuantity() - qty; // subtract sold quantity
                         if (newStock < 0) newStock = 0; // prevent negative stock

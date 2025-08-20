@@ -13,6 +13,9 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 
+
+	
+
 </head>
 <body
 	class="min-h-screen bg-gradient-to-br from-teal-400 to-cyan-600  font-sans">
@@ -53,21 +56,8 @@
 			<main class="flex-1 p-6 overflow-y-auto">
 				<!-- Sales Table -->
 
-				<%
-				String successMessage = (String) session.getAttribute("successMessage");
-				if (successMessage != null) {
-				%>
-				<div
-					class="fixed top-4 right-4 max-w-sm w-full bg-green-600 border border-green-400 text-green-100 rounded-lg shadow-lg p-4 flex items-center animate-fade-in-out">
-					<i class="fas fa-check-circle mr-3 text-green-200 text-lg"></i> <span
-						class="flex-1 text-sm font-medium"><%=successMessage%></span>
-					<button onclick="this.parentElement.remove()"
-						class="ml-3 text-green-200 hover:text-white font-bold">&times;</button>
-				</div>
-				<%
-				session.removeAttribute("successMessage");
-				}
-				%>
+				
+				
 				<div
 					class="bg-white/10 backdrop-blur-md rounded-xl border border-white/20 shadow-2xl overflow-hidden">
 					<div class="overflow-x-auto">
@@ -108,28 +98,21 @@
 									<tr class="hover:bg-white/5 transition-colors duration-200">
 										<td class="px-6 py-4 whitespace-nowrap text-white">${order.id}</td>
 										<td class="px-6 py-4 whitespace-nowrap text-white">${order.customerName}</td>
-										<td class="px-6 py-4 whitespace-nowrap text-white">${order.total_amount}
-											+ ${order.discount}</td>
-
+										<td class="px-6 py-4 whitespace-nowrap text-white">${order.totalAmount + order.discount}</td>
 										<td class="px-6 py-4 whitespace-nowrap text-white">${order.discount}</td>
-										<td class="px-6 py-4 whitespace-nowrap text-white">${order.total_amount}</td>
+										<td class="px-6 py-4 whitespace-nowrap text-white">${order.totalAmount}</td>
 
 										<td class="px-6 py-4 whitespace-nowrap text-center">
-											<!--  order view -->
-										<!-- 	<button
-												onclick="openEditModal(${order.id}, '${order.name}', '${customer.TP}', '${customer.address}')"
-												class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg mr-2 transition-colors duration-200">
-												<i class="fas fa-edit"></i>
-											</button>  -->
+    <button type="button" onclick="openOrderItemsModal(${order.id})"
+        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg mr-2 transition-colors duration-200">
+        <i class="fas fa-eye"></i>
+    </button>
 
-											<button type="button" onclick="openDeleteModal(${order.id})"
-												class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transition-colors duration-200">
-												<i class="fas fa-trash"></i>
-											</button>
-
-
-
-										</td>
+    <button type="button" onclick="openDeleteModal(${order.id})"
+        class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transition-colors duration-200">
+        <i class="fas fa-trash"></i>
+    </button>
+</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -160,7 +143,7 @@
 						</c:forEach>
 
 						<c:if test="${currentPage < totalPages}">
-							<a href="SalesServlet ?page=${currentPage + 1}"
+							<a href="SalesServlet?page=${currentPage + 1}"
 								class="px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white hover:bg-white/20">
 								<i class="fas fa-chevron-right"></i>
 							</a>
@@ -210,7 +193,7 @@
 							<button type="button" onclick="closeDeleteModal()"
 								class="px-5 py-2 bg-white/10 border border-white/20 text-white rounded-xl hover:bg-white/20 transition-all duration-300">
 								Cancel</button>
-							<form method="post" action="CustomerServlet">
+							<form method="post" action="SalesServlet">
 								<input type="hidden" name="action" value="delete"> <input
 									type="hidden" name="id" id="deleteCustomerId">
 								<button type="submit"
@@ -229,26 +212,35 @@
 	<script>
 	<!-- Modal  -->
 	function openOrderItemsModal(orderId) {
-	    fetch('GetOrderItemsServlet?orderId=' + orderId)
-	        .then(response => response.json())
-	        .then(data => {
-	            const tbody = document.getElementById('orderItemsBody');
-	            tbody.innerHTML = '';
-	            data.forEach(item => {
-	                tbody.innerHTML += `<tr>
-	                    <td class="px-4 py-2">${item.name}</td>
-	                    <td class="px-4 py-2">${item.itemPrice}</td>
-	                    <td class="px-4 py-2">${item.qty}</td>
-	                    <td class="px-4 py-2">${item.total}</td>
-	                </tr>`;
-	            });
-	            document.getElementById('orderItemsModal').classList.remove('hidden');
+	    fetch('SalesServlet', {
+	        method: 'POST',
+	        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+	        body: 'action=view&id=' + orderId
+	    })
+	    .then(response => response.json())
+	    
+	    .then(data => {
+	    	 console.log("Received data:", data);
+	        const tbody = document.getElementById('orderItemsBody');
+	        tbody.innerHTML = '';
+	        data.forEach(item => {
+	            tbody.innerHTML += `<tr>
+	                <td class="px-4 py-2">\${item.name}</td>
+	                <td class="px-4 py-2">\${item.itemPrice}</td>
+	                <td class="px-4 py-2">\${item.qty}</td>
+	                <td class="px-4 py-2">\${item.total}</td>
+	            </tr>`;
 	        });
+	        document.getElementById('orderItemsModal').classList.remove('hidden');
+	    });
 	}
 
 	function closeOrderItemsModal() {
 	    document.getElementById('orderItemsModal').classList.add('hidden');
-	}  
+	}
+
+
+
 	<!-- Delete -->
 	 function openDeleteModal(id) {
 	        document.getElementById("deleteModal").classList.remove("hidden");
@@ -259,164 +251,14 @@
 	    }
 
 </script>
-	<style>
-@
-keyframes fade-in-out { 0%, 100% {
-	opacity: 0;
-	transform: translateY(-10px);
-}
-
-10
-
-
-
-
-
-
-
-
-
-
-
-
-%
-,
-90
-
-
-
-
-
-
-
-
-
-
-
-
-%
-{
-opacity
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
-
-
-
-1
-
-
-
-
-
-
-
-
-
-
-;
-transform
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
-
-
-
-translateY
-
-
-
-
-
-
-
-
-
-
-(
-
-
-
-
-
-
-
-
-
-
-
-
-0
-
-
-
-
-
-
-
-
-
-
-
-
-)
-
-
-
-
-
-
-
-
-
-
-;
-}
+<style>
+@keyframes fade-in-out {
+  0%, 100% { opacity: 0; transform: translateY(-10px); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-in-out {
-	animation: fade-in-out 3s ease forwards;
+  animation: fade-in-out 3s ease forwards;
 }
 </style>
-
-
-
 </body>
 </html>

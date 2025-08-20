@@ -122,6 +122,32 @@ public class OrderDao {
         }
     }
 
+    public List<Order> getOrdersByDateRange(String startDate, String endDate) {
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT * FROM orders WHERE DATE(created_at) BETWEEN ? AND ? ORDER BY created_at ASC";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, startDate);
+            stmt.setString(2, endDate);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setId(rs.getInt("id"));
+                order.setCustomerName(rs.getString("customer_name"));
+                order.setTotalAmount(rs.getBigDecimal("total_amount"));
+                order.setDiscount(rs.getBigDecimal("discount"));
+                // set other fields if needed
+                orders.add(order);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
 
 
 }

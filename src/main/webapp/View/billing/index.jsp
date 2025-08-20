@@ -12,6 +12,8 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+	
 </head>
 <body
 	class="min-h-screen bg-gradient-to-br from-teal-400 to-cyan-600 font-sans">
@@ -73,10 +75,15 @@
 									${item.id}" data-name="${fn:toLowerCase(item.name)}"
 									data-id="${item.id}" data-name="${fn:toLowerCase(item.name)}"
 									data-price="${item.sellingPrice}"
-									data-code="${fn:toLowerCase(item.itemCode)}">
+									data-code="${fn:toLowerCase(item.itemCode)}"data-qty="${item.stockQuantity}">
 									<h3 class="text-lg font-semibold truncate"
 										title="${item.itemCode}-${item.name}">${item.itemCode}-${item.name}</h3>
+										<div class="flex justify-between">
 									<p class="text-black mb-2">Rs. ${item.sellingPrice}</p>
+									<p class="text-black mb-2 stock-text"> Qty. ${item.stockQuantity}</p>
+								
+										</div>
+									
 									<button type="button"
 										class="add-to-cart bg-gradient-to-r from-green-400 to-emerald-500 text-white px-3 py-2 rounded-lg hover:from-green-500 hover:to-emerald-600">
 										Add to Cart</button>
@@ -195,6 +202,7 @@ document.getElementById('searchBox').addEventListener('input', function () {
 // Billing cart
 let cart = [];
 
+
 // Add to Cart
 document.querySelectorAll('.add-to-cart').forEach(btn => {
     btn.addEventListener('click', function() {
@@ -202,13 +210,28 @@ document.querySelectorAll('.add-to-cart').forEach(btn => {
         const id = card.dataset.id;
         const name = card.dataset.name;
         const price = parseFloat(card.dataset.price);
+        let stockQty = parseInt(card.dataset.qty); // 🔹 get available qty
 
+        if (stockQty <= 0) {
+            alert("Qty not available!");
+            return;
+        }
+
+        // reduce stock qty
+        stockQty -= 1;
+        card.dataset.qty = stockQty;
+
+        // update UI qty text
+        card.querySelector('.stock-text').textContent = "Qty. " + stockQty;
+
+        // add/update in cart
         const existing = cart.find(i => i.id === id);
         if (existing) {
             existing.qty += 1;
         } else {
             cart.push({ id, name, price, qty: 1 });
         }
+
         renderCart();
     });
 });

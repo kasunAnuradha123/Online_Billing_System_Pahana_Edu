@@ -35,9 +35,38 @@ public class OrderItemDao {
         }
     }
     
+//    public List<OrderItem> getItemsByOrderId(int orderId) {
+//        List<OrderItem> items = new ArrayList<>();
+//        String sql = "SELECT * FROM order_items WHERE order_id = ?";
+//
+//        try (Connection conn = DBConnection.getConnection();
+//             PreparedStatement stmt = conn.prepareStatement(sql)) {
+//
+//            stmt.setInt(1, orderId);
+//            ResultSet rs = stmt.executeQuery();
+//
+//            while (rs.next()) {
+//                OrderItem item = new OrderItem();
+//                item.setId(rs.getInt("id"));
+//                item.setOrderId(rs.getInt("order_id"));
+//                item.setItemId(rs.getInt("item_id"));
+//                item.setQty(rs.getInt("qty"));
+//                item.setItemPrice(rs.getBigDecimal("item_price"));
+//                // Add any other item fields if needed
+//                items.add(item);
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return items;
+//    }
+
     public List<OrderItem> getItemsByOrderId(int orderId) {
         List<OrderItem> items = new ArrayList<>();
-        String sql = "SELECT * FROM order_items WHERE order_id = ?";
+        String sql = "SELECT oi.*, i.name AS item_name FROM order_items oi "
+                   + "JOIN items i ON oi.item_id = i.id WHERE order_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -50,9 +79,10 @@ public class OrderItemDao {
                 item.setId(rs.getInt("id"));
                 item.setOrderId(rs.getInt("order_id"));
                 item.setItemId(rs.getInt("item_id"));
-                item.setQty(rs.getInt("qty"));
+                item.setItemName(rs.getString("item_name")); // <-- add this
                 item.setItemPrice(rs.getBigDecimal("item_price"));
-                // Add any other item fields if needed
+                item.setQty(rs.getInt("qty"));
+                item.setTotal(rs.getBigDecimal("total")); // <-- add this
                 items.add(item);
             }
 
