@@ -61,6 +61,20 @@
 				<div
 					class="bg-white/10 backdrop-blur-md rounded-xl border border-white/20 shadow-2xl overflow-hidden">
 					<div class="overflow-x-auto">
+<div class="flex items-center space-x-4 mb-4">
+    <div>
+        <label class="text-white mr-2">From:</label>
+        <input type="date" id="fromDate" class="rounded px-2 py-1">
+    </div>
+    <div>
+        <label class="text-white mr-2">To:</label>
+        <input type="date" id="toDate" class="rounded px-2 py-1">
+    </div>
+    <button onclick="generateReport()"
+        class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+        <i class="fas fa-file-invoice"></i> Generate Report
+    </button>
+</div>
 
 						<table class="min-w-full">
 
@@ -210,6 +224,23 @@
 		</div>
 	</div>
 	<script>
+	//report page
+	
+function generateReport() {
+    const from = document.getElementById('fromDate').value;
+    const to = document.getElementById('toDate').value;
+
+    if (!from || !to) {
+        alert('Please select both From and To dates.');
+        return;
+    }
+
+    // Redirect to the report servlet with query parameters
+    window.open('<%= request.getContextPath() %>/SalesReportServlet?from=' + from + '&to=' + to, '_blank');
+
+}
+
+
 	<!-- Modal  -->
 	function openOrderItemsModal(orderId) {
 	    fetch('SalesServlet', {

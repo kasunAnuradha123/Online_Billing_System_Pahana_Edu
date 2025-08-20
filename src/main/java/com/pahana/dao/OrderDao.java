@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pahana.model.Order;
+import com.pahana.model.OrderItem;
 import com.pahana.util.DBConnection;
 
 public class OrderDao {
@@ -122,30 +123,59 @@ public class OrderDao {
         }
     }
 
-    public List<Order> getOrdersByDateRange(String startDate, String endDate) {
+    //sales report query
+    public List<Order> getOrdersByDateRangeWithItems(String startDate, String endDate) {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM orders WHERE DATE(created_at) BETWEEN ? AND ? ORDER BY created_at ASC";
+        String sqlOrders = "SELECT o.*, c.name AS customer_name " +
+                           "FROM orders o " +
+                           "JOIN customers c ON o.customer_id = c.id " +
+                           "WHERE o.created_at >= ? AND o.created_at < DATE_ADD(?, INTERVAL 1 DAY) " +
+                           "ORDER BY o.created_at ASC";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sqlOrders)) {
 
             stmt.setString(1, startDate);
             stmt.setString(2, endDate);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+            	 
                 Order order = new Order();
                 order.setId(rs.getInt("id"));
+                order.setCustomerId(rs.getInt("customer_id"));
                 order.setCustomerName(rs.getString("customer_name"));
                 order.setTotalAmount(rs.getBigDecimal("total_amount"));
                 order.setDiscount(rs.getBigDecimal("discount"));
-                // set other fields if needed
+
+                // Fetch items for this order
+                List<OrderItem> items = new ArrayList<>();
+                String sqlItems = "SELECT * FROM order_items WHERE order_id = ?";
+                try (PreparedStatement stmtItems = conn.prepareStatement(sqlItems)) {
+                    stmtItems.setInt(1, order.getId());
+                    ResultSet rsItems = stmtItems.executeQuery();
+                    while (rsItems.next()) {
+                        OrderItem item = new OrderItem();
+                        item.setId(rsItems.getInt("id"));
+                        item.setOrderId(rsItems.getInt("order_id"));
+                        item.setItemId(rsItems.getInt("item_id"));
+                        item.setItemName(rsItems.getString("item_name"));
+                        item.setItemPrice(rsItems.getBigDecimal("item_price"));
+                        item.setQty(rsItems.getInt("qty"));
+                        // Calculate total for each item
+                        item.setTotal(item.getItemPrice().multiply(new java.math.BigDecimal(item.getQty())));
+                        items.add(item);
+                    }
+                }
+
+                order.setItems(items);
                 orders.add(order);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return orders;
     }
 

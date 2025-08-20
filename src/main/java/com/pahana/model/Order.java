@@ -2,6 +2,8 @@ package com.pahana.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
 	private int id;
@@ -10,7 +12,8 @@ public class Order {
 	private BigDecimal discount;
 	private Timestamp created_at;
 	private String customerName;
-
+	private List<OrderItem> items = new ArrayList<>();
+	
 	// ID
 	public int getId() {
 		return id;
@@ -65,6 +68,16 @@ public class Order {
 	public void setCustomerName(String customerName) {
 	    this.customerName = customerName;
 	}
+	
 
+	public List<OrderItem> getItems() {
+	    return items;
+	}
 
+	public void setItems(List<OrderItem> items) {
+	    this.items = items;
+	}
+	
+
+	
 }

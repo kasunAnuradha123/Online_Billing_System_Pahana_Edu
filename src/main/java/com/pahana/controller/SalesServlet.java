@@ -52,17 +52,7 @@ public class SalesServlet extends HttpServlet {
 
         OrderDao orderDao = new OrderDao();
         OrderItemDao itemDao = new OrderItemDao();
-        
-        if ("report".equalsIgnoreCase(action)) {
-            String startDate = request.getParameter("startDate");
-            String endDate = request.getParameter("endDate");
-
-            List<Order> reportOrders = orderDao.getOrdersByDateRange(startDate, endDate);
-            request.setAttribute("orders", reportOrders);
-            request.setAttribute("reportMode", true); // flag to show it's a report
-            request.getRequestDispatcher("View/sales/index.jsp").forward(request, response);
-            return;
-        }
+  
 
         if ("delete".equalsIgnoreCase(action)) {
             try {
