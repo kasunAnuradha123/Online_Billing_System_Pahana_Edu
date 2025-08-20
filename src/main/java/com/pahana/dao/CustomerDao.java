@@ -115,6 +115,56 @@ public class CustomerDao {
         }
         return prefix + "0001";
     }
+    //get customer to billing page
+    public List<Customer> getAllCustomers() {
+        List<Customer> customers = new ArrayList<>();
+        String sql = "SELECT id, account_number, name, address, telephone_number FROM customers ORDER BY account_number DESC";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Customer c = new Customer();
+                c.setId(rs.getInt("id"));
+                c.setAccountNumber(rs.getString("account_number"));
+                c.setName(rs.getString("name"));
+                c.setTP(rs.getString("telephone_number"));
+                c.setAddress(rs.getString("address"));
+                customers.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
+    
+    public Customer getCustomerById(int customerId) {
+        Customer customer = null;
+        String sql = "SELECT * FROM customers WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, customerId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                customer = new Customer();
+                customer.setId(rs.getInt("id"));
+                customer.setName(rs.getString("name"));
+                customer.setTP(rs.getString("telephone_number"));
+                customer.setAddress(rs.getString("address"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customer;
+    }
+
+
 
 
 }

@@ -24,7 +24,6 @@
 		<nav class="flex-1 p-4 space-y-2">
 			<a href="<%=request.getContextPath()%>/BillingServlet"
 				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
-
 				<div
 					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-yellow-500/25 transition-all duration-300">
 					<i class="fas fa-file-invoice-dollar text-white text-sm"></i>
@@ -67,29 +66,30 @@
 					<p class="text-white/60 text-xs">Books & Items</p>
 				</div> <i
 				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
-			</a> <a href="reports.jsp"
+			</a> <a href="<%=request.getContextPath()%>/SalesServlet"
 				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
 				<div
 					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-red-500/25 transition-all duration-300">
 					<i class="fas fa-chart-line text-white text-sm"></i>
 				</div>
 				<div class="flex-1">
-					<span class="text-white font-medium">Reports</span>
+					<span class="text-white font-medium">Sales & Reports</span>
 					<p class="text-white/60 text-xs">Sales & Statistics</p>
 				</div> <i
 				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
-			</a> <a href="settings.jsp"
+			</a> <a href="<%=request.getContextPath()%>/UserServlet"
 				class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
 				<div
 					class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-gray-500 to-slate-500 rounded-lg mr-4 group-hover:shadow-lg group-hover:shadow-gray-500/25 transition-all duration-300">
 					<i class="fas fa-cog text-white text-sm"></i>
 				</div>
 				<div class="flex-1">
-					<span class="text-white font-medium">Settings</span>
-					<p class="text-white/60 text-xs">System Configuration</p>
+					<span class="text-white font-medium">System Users</span>
+					<p class="text-white/60 text-xs">System User Management</p>
 				</div> <i
 				class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
 			</a>
+
 		</nav>
 		<div class="p-4 border-t border-white/20 animate-fade-in"
 			style="animation-delay: 0.8s;">

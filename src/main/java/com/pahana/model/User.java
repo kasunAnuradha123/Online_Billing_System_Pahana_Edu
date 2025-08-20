@@ -2,6 +2,7 @@ package com.pahana.model;
 
 import java.sql.Date;
 
+
 public class User {
 	private int id;
 	private String name;
@@ -55,7 +56,7 @@ public class User {
 		return created_at;
 	}
 
-	public void setCreatedAt(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date date) {
+		this.created_at = date;
 	}
 }

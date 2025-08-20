@@ -11,7 +11,7 @@ public class OrderItem {
 	private int qty;
 	private BigDecimal total;
 	private Timestamp created_at;
-
+	 private String itemName;
 	// ID
 	public int getId() {
 		return id;
@@ -44,7 +44,7 @@ public class OrderItem {
 		return item_price;
 	}
 
-	public void setItemPric(BigDecimal item_price) {
+	public void setItemPrice(BigDecimal item_price) {
 		this.item_price = item_price;
 	}
 
@@ -74,4 +74,9 @@ public class OrderItem {
 	public void setCreatedAt(Timestamp created_at) {
 		this.created_at = created_at;
 	}
+	public String getItemName() { return itemName; }     // <-- ADD
+    public void setItemName(String itemName) { this.itemName = itemName; }
+	
+
+	
 }
