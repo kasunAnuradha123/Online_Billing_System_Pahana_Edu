@@ -32,7 +32,7 @@
 <body onload="window.print()">
     <h2>Pahana Edu BookShop</h2>
     <h3>Some Address, Colombo, Sri Lanka</h3>
-    <p style="text-align:center;">Phone: +9479032174</p>
+    <p style="text-align:center;">Phone: +94719032174</p>
     <hr>
 
     <p>
