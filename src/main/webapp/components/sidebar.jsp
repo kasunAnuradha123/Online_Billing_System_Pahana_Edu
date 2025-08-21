@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <c:set var="user" value="${sessionScope.loggedUser}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +52,7 @@
                 </div>
                 <i class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
             </a>
-
+ <c:if test="${user.role == 'admin'}">
             <!-- Inventory -->
             <a href="<%=request.getContextPath()%>/ItemServlet"
                class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
@@ -89,7 +91,7 @@
                 </div>
                 <i class="fas fa-chevron-right text-white/40 group-hover:text-white/80 transition-all duration-300"></i>
             </a>
-
+ </c:if>
             <!-- Help -->
             <a href="<%=request.getContextPath()%>/View/help/index.jsp"
                class="group flex items-center p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
