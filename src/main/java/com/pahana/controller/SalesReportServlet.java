@@ -13,6 +13,7 @@ import com.pahana.model.Order;
 public class SalesReportServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -20,32 +21,38 @@ public class SalesReportServlet extends HttpServlet {
         String toDate = request.getParameter("to");
 
         if (fromDate == null || toDate == null) {
-            response.getWriter().println("Please provide both from and to dates.");
+            response.getWriter().println("Please provide both 'from' and 'to' dates.");
             return;
+        }
+
+       
+        if (fromDate.compareTo(toDate) > 0) {
+            String temp = fromDate;
+            fromDate = toDate;
+            toDate = temp;
         }
 
         OrderDao orderDao = new OrderDao();
         List<Order> orders = orderDao.getOrdersByDateRangeWithItems(fromDate, toDate);
-        System.out.println("Orders fetched: " + orders.size()); // <-- debug
-     // Precompute total sales amount
+
+      
         double salesAmount = 0;
         for (Order order : orders) {
-            double orderTotal = 0;
             if (order.getItems() != null) {
-                for (var item : order.getItems()) {
-                    orderTotal += item.getTotal().doubleValue();
-                }
+                double orderTotal = order.getItems().stream()
+                        .mapToDouble(item -> item.getTotal().doubleValue())
+                        .sum();
+                salesAmount += orderTotal;
             }
-            // order.setOrderTotal(orderTotal); <-- remove this line
-            salesAmount += orderTotal;
         }
 
-
+        // ✅ Set attributes for JSP
         request.setAttribute("orders", orders);
         request.setAttribute("fromDate", fromDate);
         request.setAttribute("toDate", toDate);
         request.setAttribute("salesAmount", salesAmount);
 
+        // ✅ Forward to report JSP
         request.getRequestDispatcher("/View/sales/report.jsp").forward(request, response);
     }
 }

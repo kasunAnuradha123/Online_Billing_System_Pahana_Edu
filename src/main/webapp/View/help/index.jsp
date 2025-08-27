@@ -51,7 +51,7 @@
             <div class="px-5 pb-4 text-white space-y-2">
               <p><strong>Add Items:</strong> Search and add items to the bill with their quantity and price.</p>
               <p><strong>Quantity Change:</strong> Update the quantity of any item in the bill before finalizing.</p>
-              <p><strong>Discount:</strong> Apply item-wise or total discount to bills.</p>
+              <p><strong>Discount:</strong> Apply  total discount to bills.</p>
               <p><strong>Print Bill:</strong> Generate and print the bill for the customer.</p>
             </div>
           </details>
@@ -84,9 +84,9 @@
               </svg>
             </summary>
             <div class="px-5 pb-4 text-white space-y-2">
-              <p><strong>Add Items:</strong> Add new books or items with name, category, price, and stock.</p>
+              <p><strong>Add Items:</strong> Add new books or items with name,code , price, and stock.</p>
               <p><strong>Update/Delete:</strong> Edit item details or remove items from inventory.</p>
-              <p><strong>Search:</strong> Quickly find items using name or category.</p>
+              <p><strong>Search:</strong> Quickly find items using name or code.</p>
             </div>
           </details>
         </li>
@@ -103,7 +103,7 @@
             <div class="px-5 pb-4 text-white space-y-2">
               <p><strong>View Sales:</strong> Check all sales records with date, items sold, and total amount.</p>
               <p><strong>Generate Reports:</strong> Produce reports based on date range, customer, or item sales.</p>
-              <p><strong>Print/Export:</strong> Print reports or export to Excel for accounting purposes.</p>
+              <p><strong>Print/Export:</strong> Print reports for accounting purposes.</p>
             </div>
           </details>
         </li>

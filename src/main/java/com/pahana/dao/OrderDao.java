@@ -126,21 +126,23 @@ public class OrderDao {
     //sales report query
     public List<Order> getOrdersByDateRangeWithItems(String startDate, String endDate) {
         List<Order> orders = new ArrayList<>();
+
         String sqlOrders = "SELECT o.*, c.name AS customer_name " +
                            "FROM orders o " +
                            "JOIN customers c ON o.customer_id = c.id " +
-                           "WHERE o.created_at >= ? AND o.created_at < DATE_ADD(?, INTERVAL 1 DAY) " +
+                           "WHERE o.created_at BETWEEN ? AND ? " +
                            "ORDER BY o.created_at ASC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sqlOrders)) {
 
-            stmt.setString(1, startDate);
-            stmt.setString(2, endDate);
+            stmt.setString(1, startDate + " 00:00:00");
+            stmt.setString(2, endDate + " 23:59:59");
+
+          
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-            	 
                 Order order = new Order();
                 order.setId(rs.getInt("id"));
                 order.setCustomerId(rs.getInt("customer_id"));
@@ -148,9 +150,13 @@ public class OrderDao {
                 order.setTotalAmount(rs.getBigDecimal("total_amount"));
                 order.setDiscount(rs.getBigDecimal("discount"));
 
-                // Fetch items for this order
+                
                 List<OrderItem> items = new ArrayList<>();
-                String sqlItems = "SELECT * FROM order_items WHERE order_id = ?";
+                String sqlItems = "SELECT oi.id, oi.order_id, oi.item_id, i.name AS item_name, oi.item_price, oi.qty " +
+                                  "FROM order_items oi " +
+                                  "JOIN items i ON oi.item_id = i.id " +
+                                  "WHERE oi.order_id = ?";
+
                 try (PreparedStatement stmtItems = conn.prepareStatement(sqlItems)) {
                     stmtItems.setInt(1, order.getId());
                     ResultSet rsItems = stmtItems.executeQuery();
@@ -162,7 +168,6 @@ public class OrderDao {
                         item.setItemName(rsItems.getString("item_name"));
                         item.setItemPrice(rsItems.getBigDecimal("item_price"));
                         item.setQty(rsItems.getInt("qty"));
-                        // Calculate total for each item
                         item.setTotal(item.getItemPrice().multiply(new java.math.BigDecimal(item.getQty())));
                         items.add(item);
                     }

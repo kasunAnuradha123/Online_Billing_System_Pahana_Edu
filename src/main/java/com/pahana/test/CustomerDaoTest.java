@@ -22,7 +22,7 @@ class CustomerDaoTest {
 
 	    @Test
 	    void testGetCustomers() {
-	        List<Customer> customers = customerDao.getCustomers();
+	        List<Customer> customers = customerDao.getAllCustomers();
 
 	        assertNotNull(customers, "Customer list should not be null");
 	        assertTrue(customers.size() >= 0, "Customer list size should be >= 0");
